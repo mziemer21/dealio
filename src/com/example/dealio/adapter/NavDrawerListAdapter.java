@@ -14,6 +14,11 @@ import android.widget.TextView;
 import com.example.dealio.R;
 import com.example.dealio.model.NavDrawerItem;
 
+/***
+ * creates a list of nav drawer items
+ * @author zieme_000
+ *
+ */
 public class NavDrawerListAdapter extends BaseAdapter {
 	
 	private Context context;

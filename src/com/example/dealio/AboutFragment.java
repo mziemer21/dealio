@@ -6,6 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
+/***
+ * This is a fragment launched from the nav drawer
+ * It is just a short about page
+ * @author zieme_000
+ *
+ */
 public class AboutFragment extends Fragment {
 	
 	public AboutFragment(){}

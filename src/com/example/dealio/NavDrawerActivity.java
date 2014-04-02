@@ -21,6 +21,11 @@ import android.widget.ListView;
 import com.example.dealio.adapter.NavDrawerListAdapter;
 import com.example.dealio.model.NavDrawerItem;
 
+/***
+ * attempt at creating an abstract anv drawer that can be loaded by all activities
+ * @author zieme_000
+ *
+ */
 public class NavDrawerActivity extends Activity {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;

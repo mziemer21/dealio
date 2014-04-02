@@ -1,8 +1,8 @@
 package com.example.dealio.adapter;
 
-import com.example.dealio.GamesFragment;
-import com.example.dealio.MoviesFragment;
-import com.example.dealio.TopRatedFragment;
+import com.example.dealio.DealsTabFragment;
+import com.example.dealio.ReviewsTabFragment;
+import com.example.dealio.PicturesTabFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -19,13 +19,13 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
 		switch (index) {
 		case 0:
 			// Top Rated fragment activity
-			return new TopRatedFragment();
+			return new PicturesTabFragment();
 		case 1:
 			// Games fragment activity
-			return new GamesFragment();
+			return new DealsTabFragment();
 		case 2:
 			// Movies fragment activity
-			return new MoviesFragment();
+			return new ReviewsTabFragment();
 		}
 
 		return null;

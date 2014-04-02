@@ -2,7 +2,6 @@ package com.example.dealio;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -10,6 +9,7 @@ import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
@@ -21,7 +21,12 @@ import android.widget.ListView;
 import com.example.dealio.adapter.NavDrawerListAdapter;
 import com.example.dealio.model.NavDrawerItem;
 
-public class tabsNav extends Activity {
+/***
+ * 
+ * @author zieme_000
+ *
+ */
+public class tabsNav extends FragmentActivity {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -29,7 +34,7 @@ public class tabsNav extends Activity {
 	// nav drawer title
 	private CharSequence mDrawerTitle;
 
-	// used to store app title
+	// used to store app title    v
 	private CharSequence mTitle;
 
 	// slide menu items
@@ -53,8 +58,8 @@ public class tabsNav extends Activity {
 		navMenuIcons = getResources()
 				.obtainTypedArray(R.array.nav_drawer_icons);
 
-		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
+		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout_tabs);
+		mDrawerList = (ListView) findViewById(R.id.list_slidermenu_tabs);
 
 		navDrawerItems = new ArrayList<NavDrawerItem>();
 
@@ -108,7 +113,7 @@ public class tabsNav extends Activity {
 
 		if (savedInstanceState == null) {
 			// on first time display view for first nav item
-			displayView(0);
+			//displayView(0);
 		}
 	}
 

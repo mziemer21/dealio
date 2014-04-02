@@ -6,6 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+/****
+ * This is a fragment launched from the nav drawer
+ * It contains buttons to list, map, random, deals
+ * @author zieme_000
+ *
+ */
 public class HomeFragment extends Fragment {
 	
 	public HomeFragment(){}

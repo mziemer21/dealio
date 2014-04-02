@@ -6,6 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+/****
+ * This is a fragment launched from the nav drawer
+ * It allows the user to logout
+ * @author zieme_000
+ *
+ */
 public class LogoutFragment extends Fragment {
 	
 	public LogoutFragment(){}

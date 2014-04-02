@@ -1,5 +1,10 @@
 package com.example.dealio.model;
 
+/***
+ * creates a single nav drawer item
+ * @author zieme_000
+ *
+ */
 public class NavDrawerItem {
 	
 	private String title;

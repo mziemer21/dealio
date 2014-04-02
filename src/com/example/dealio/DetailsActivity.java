@@ -9,7 +9,13 @@ import android.support.v4.view.ViewPager;
 
 import com.example.dealio.adapter.TabsPagerAdapter;
 
-public class DetailsActivity extends FragmentActivity implements
+/****
+ * This shows the details of a establishment
+ * It has 4 tabs: main, deals, reviews, pictures
+ * @author zieme_000
+ *
+ */
+public class DetailsActivity extends tabsNav implements
 		ActionBar.TabListener {
 
 	private ViewPager viewPager;
@@ -21,8 +27,6 @@ public class DetailsActivity extends FragmentActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		tabsNav navDrawer = new tabsNav();
-		navDrawer.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_details);
 

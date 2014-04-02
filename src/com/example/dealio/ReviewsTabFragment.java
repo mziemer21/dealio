@@ -7,14 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class GamesFragment extends Fragment {
+/***
+ * Tab used by details fragment
+ * It contains a list of reviews
+ * @author zieme_000
+ *
+ */
+public class ReviewsTabFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		View rootView = inflater.inflate(R.layout.fragment_games, container, false);
+		View rootView = inflater.inflate(R.layout.fragment_movies, container, false);
 		
 		return rootView;
 	}
+
 }
