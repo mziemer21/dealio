@@ -25,10 +25,13 @@
         <activity android:name="com.example.dealio.TabsFragmentActivity"
                   android:label="@string/app_name"></activity>
         
-        <activity android:name="com.example.dealio.DetailsFragment"
+        <activity android:name="com.example.dealio.DetailsActivity"
                   android:label="@string/app_name"></activity>
         
-        <activity android:name="com.example.dealio.VanDrawerActivity"
+        <activity android:name="com.example.dealio.NavDrawerActivity"
+                  android:label="@string/app_name"></activity>
+        
+        <activity android:name="com.example.dealio.tabsNav"
                   android:label="@string/app_name"></activity>
         
         
