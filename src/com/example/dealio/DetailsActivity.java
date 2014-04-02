@@ -19,6 +19,9 @@ public class DetailsActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        NavDrawerActivity navDrawer = new NavDrawerActivity();
+        navDrawer.onCreate(savedInstanceState);
+        
         setContentView(R.layout.activity_details);
         appContext = getApplicationContext();
 
@@ -31,20 +34,20 @@ public class DetailsActivity extends Activity {
         ActionBar.Tab ReviewsTab = actionbar.newTab().setText("Reviews");
         ActionBar.Tab PicturesTab = actionbar.newTab().setText("Pictures");
         
-        Fragment DetailsFragment = new Fragment();
-        Fragment DealsFragment = new BFragment();
-        Fragment ReviewsFragment = new Fragment();
-        Fragment PicturesFragment = new BFragment();
+        Fragment DetailsFragment = new DetailsMainTabFragment();
+        Fragment DealsFragment = new DetailsDealsTabFragment();
+        Fragment ReviewsFragment = new DetailsReviewsTabFragment();
+        Fragment PicturesFragment = new DetailsPicturesTabFragment();
 
         DetailsTab.setTabListener(new MyTabsListener(DetailsFragment));
         DealsTab.setTabListener(new MyTabsListener(DealsFragment));
         ReviewsTab.setTabListener(new MyTabsListener(ReviewsFragment));
         PicturesTab.setTabListener(new MyTabsListener(PicturesFragment));
 
-        actionbar.addTab(PlayerTab);
-        actionbar.addTab(StationsTab);
-        actionbar.addTab(PlayerTab);
-        actionbar.addTab(StationsTab);
+        actionbar.addTab(DetailsTab);
+        actionbar.addTab(DealsTab);
+        actionbar.addTab(ReviewsTab);
+        actionbar.addTab(PicturesTab);
     }
     
     @Override

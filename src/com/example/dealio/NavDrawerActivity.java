@@ -180,7 +180,7 @@ public class NavDrawerActivity extends Activity {
 			fragment = new FeedbackFragment();
 			break;
 		case 5:
-			Intent detailsFragment = new Intent(this, DetailsFragment.class);
+			Intent detailsFragment = new Intent(this, DetailsActivity.class);
 	        startActivity(detailsFragment);
 			break;
 
