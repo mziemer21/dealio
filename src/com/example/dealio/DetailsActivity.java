@@ -2,97 +2,80 @@ package com.example.dealio;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
-import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.widget.Toast;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 
-public class DetailsActivity extends Activity {
-	public static Context appContext;
+import com.example.dealio.adapter.TabsPagerAdapter;
 
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        NavDrawerActivity navDrawer = new NavDrawerActivity();
-        navDrawer.onCreate(savedInstanceState);
-        
-        setContentView(R.layout.activity_details);
-        appContext = getApplicationContext();
+public class DetailsActivity extends FragmentActivity implements
+		ActionBar.TabListener {
 
-       //ActionBar
-        ActionBar actionbar = getActionBar();
-        actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        
-        ActionBar.Tab DetailsTab = actionbar.newTab().setText("Details");
-        ActionBar.Tab DealsTab = actionbar.newTab().setText("Deals");
-        ActionBar.Tab ReviewsTab = actionbar.newTab().setText("Reviews");
-        ActionBar.Tab PicturesTab = actionbar.newTab().setText("Pictures");
-        
-        Fragment DetailsFragment = new DetailsMainTabFragment();
-        Fragment DealsFragment = new DetailsDealsTabFragment();
-        Fragment ReviewsFragment = new DetailsReviewsTabFragment();
-        Fragment PicturesFragment = new DetailsPicturesTabFragment();
+	private ViewPager viewPager;
+	private TabsPagerAdapter mAdapter;
+	private ActionBar actionBar;
+	// Tab titles
+	private String[] tabs = { "Top Rated", "Games", "Movies" };
 
-        DetailsTab.setTabListener(new MyTabsListener(DetailsFragment));
-        DealsTab.setTabListener(new MyTabsListener(DealsFragment));
-        ReviewsTab.setTabListener(new MyTabsListener(ReviewsFragment));
-        PicturesTab.setTabListener(new MyTabsListener(PicturesFragment));
-
-        actionbar.addTab(DetailsTab);
-        actionbar.addTab(DealsTab);
-        actionbar.addTab(ReviewsTab);
-        actionbar.addTab(PicturesTab);
-    }
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
-        return true;
-    }
-
-    
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		return false;
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		tabsNav navDrawer = new tabsNav();
+		navDrawer.onCreate(savedInstanceState);
 		
-	}
+		setContentView(R.layout.activity_details);
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("tab", getActionBar().getSelectedNavigationIndex());
-    }
-    
-}
+		// Initilization
+		viewPager = (ViewPager) findViewById(R.id.pager);
+		actionBar = getActionBar();
+		mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
 
+		viewPager.setAdapter(mAdapter);
+		actionBar.setHomeButtonEnabled(false);
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);		
 
+		// Adding Tabs
+		for (String tab_name : tabs) {
+			actionBar.addTab(actionBar.newTab().setText(tab_name)
+					.setTabListener(this));
+		}
 
-class MyTabsListener implements ActionBar.TabListener {
-	public Fragment fragment;
+		/**
+		 * on swiping the viewpager make respective tab selected
+		 * */
+		viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
-	public MyTabsListener(Fragment fragment) {
-		this.fragment = fragment;
+			@Override
+			public void onPageSelected(int position) {
+				// on changing the page
+				// make respected tab selected
+				actionBar.setSelectedNavigationItem(position);
+			}
+
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+			}
+		});
 	}
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-		Toast.makeText(DetailsActivity.appContext, "Reselected!", Toast.LENGTH_LONG).show();
 	}
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		ft.replace(R.id.fragment_container, fragment);
+		// on tab selected
+		// show respected fragment view
+		viewPager.setCurrentItem(tab.getPosition());
 	}
 
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-		ft.remove(fragment);
 	}
+
 }
