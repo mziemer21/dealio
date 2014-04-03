@@ -1,8 +1,5 @@
-package com.example.dealio.adapter;
+package com.example.dealio.tabs;
 
-import com.example.dealio.DealsTabFragment;
-import com.example.dealio.ReviewsTabFragment;
-import com.example.dealio.PicturesTabFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -18,14 +15,17 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
 
 		switch (index) {
 		case 0:
-			// Top Rated fragment activity
-			return new PicturesTabFragment();
+			// Main fragment activity
+			return new DetailsTabFragment();
 		case 1:
-			// Games fragment activity
+			// Deals fragment activity
 			return new DealsTabFragment();
 		case 2:
-			// Movies fragment activity
+			// Reviews fragment activity
 			return new ReviewsTabFragment();
+		case 3:
+			// Pictures fragment activity
+			return new PicturesTabFragment();
 		}
 
 		return null;
@@ -34,7 +34,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
 	@Override
 	public int getCount() {
 		// get item count - equal to number of tabs
-		return 3;
+		return 4;
 	}
 
 }

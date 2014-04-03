@@ -1,4 +1,4 @@
-package com.example.dealio.model;
+package com.example.dealio.navDrawer;
 
 /***
  * creates a single nav drawer item

@@ -1,15 +1,15 @@
-package com.example.dealio;
+package com.example.dealio.navDrawer;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
@@ -18,15 +18,22 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.dealio.adapter.NavDrawerListAdapter;
-import com.example.dealio.model.NavDrawerItem;
+import com.example.dealio.ChangeLocationFragment;
+import com.example.dealio.FeedbackFragment;
+import com.example.dealio.HomeFragment;
+import com.example.dealio.LogoutFragment;
+import com.example.dealio.NotificationsFragment;
+import com.example.dealio.R;
+import com.example.dealio.tabs.DetailsActivity;
+
+
 
 /***
- * attempt at creating an abstract anv drawer that can be loaded by all activities
+ * Activity class that creates a nav drawer
  * @author zieme_000
  *
  */
-public class NavDrawerActivity extends Activity {
+public class NavDrawerActivity extends FragmentActivity {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -194,7 +201,7 @@ public class NavDrawerActivity extends Activity {
 		}
 
 		if (fragment != null) {
-			FragmentManager fragmentManager = getFragmentManager();
+			FragmentManager fragmentManager = getSupportFragmentManager();
 			fragmentManager.beginTransaction()
 					.replace(R.id.frame_container, fragment).addToBackStack(fragment.getTag()).commit();
 

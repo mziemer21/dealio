@@ -1,11 +1,12 @@
-package com.example.dealio;
+package com.example.dealio.tabs;
 
-import com.example.dealio.R;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.dealio.R;
 
 /***
  * Tab used by details fragment
@@ -19,7 +20,7 @@ public class DetailsTabFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		View rootView = inflater.inflate(R.layout.fragment_top_rated, container, false);
+		View rootView = inflater.inflate(R.layout.fragment_details, container, false);
 		
 		return rootView;
 	}

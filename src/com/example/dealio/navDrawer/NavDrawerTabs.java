@@ -1,15 +1,19 @@
-package com.example.dealio;
+package com.example.dealio.navDrawer;
 
 import java.util.ArrayList;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.app.ActionBar;
+import android.app.ActionBar.Tab;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
@@ -18,15 +22,20 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.dealio.adapter.NavDrawerListAdapter;
-import com.example.dealio.model.NavDrawerItem;
+import com.example.dealio.ChangeLocationFragment;
+import com.example.dealio.FeedbackFragment;
+import com.example.dealio.HomeFragment;
+import com.example.dealio.LogoutFragment;
+import com.example.dealio.NotificationsFragment;
+import com.example.dealio.R;
+import com.example.dealio.tabs.DetailsActivity;
 
 /***
- * 
+ * FragmentActivity class that creates a nav drawer
  * @author zieme_000
  *
  */
-public class tabsNav extends FragmentActivity {
+public class NavDrawerTabs extends FragmentActivity {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -34,7 +43,7 @@ public class tabsNav extends FragmentActivity {
 	// nav drawer title
 	private CharSequence mDrawerTitle;
 
-	// used to store app title    v
+	// used to store app title
 	private CharSequence mTitle;
 
 	// slide menu items
@@ -47,7 +56,7 @@ public class tabsNav extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_details);
+		//setContentView(R.layout.activity_details);
 
 		mTitle = mDrawerTitle = getTitle();
 
@@ -194,9 +203,18 @@ public class tabsNav extends FragmentActivity {
 		}
 
 		if (fragment != null) {
-			FragmentManager fragmentManager = getFragmentManager();
+			ActionBar actionBar = getActionBar();
+			actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+			FragmentManager fragmentManager = getSupportFragmentManager();
+			
+			ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+			if(viewPager.getVisibility() == 0)
+			{
+				viewPager.setVisibility(8);
+			}
+			
 			fragmentManager.beginTransaction()
-					.replace(R.id.frame_container, fragment).addToBackStack(fragment.getTag()).commit();
+					.replace(R.id.frame_container_tabs, fragment).addToBackStack(fragment.getTag()).commit();
 
 			// update selected item and title, then close the drawer
 			mDrawerList.setItemChecked(position, true);
@@ -232,6 +250,21 @@ public class tabsNav extends FragmentActivity {
 		super.onConfigurationChanged(newConfig);
 		// Pass any configuration change to the drawer toggls
 		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
+
+	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void onTabSelected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void onTabReselected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

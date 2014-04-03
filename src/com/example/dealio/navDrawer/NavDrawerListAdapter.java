@@ -1,4 +1,4 @@
-package com.example.dealio.adapter;
+package com.example.dealio.navDrawer;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.dealio.R;
-import com.example.dealio.model.NavDrawerItem;
+
+
 
 /***
  * creates a list of nav drawer items

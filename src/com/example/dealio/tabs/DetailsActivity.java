@@ -1,13 +1,15 @@
-package com.example.dealio;
+package com.example.dealio.tabs;
+
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
-import com.example.dealio.adapter.TabsPagerAdapter;
+import com.example.dealio.R;
+import com.example.dealio.navDrawer.NavDrawerTabs;
 
 /****
  * This shows the details of a establishment
@@ -15,18 +17,17 @@ import com.example.dealio.adapter.TabsPagerAdapter;
  * @author zieme_000
  *
  */
-public class DetailsActivity extends tabsNav implements
+public class DetailsActivity extends NavDrawerTabs implements
 		ActionBar.TabListener {
 
 	private ViewPager viewPager;
 	private TabsPagerAdapter mAdapter;
 	private ActionBar actionBar;
 	// Tab titles
-	private String[] tabs = { "Top Rated", "Games", "Movies" };
+	private String[] tabs;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_details);
 
@@ -34,9 +35,9 @@ public class DetailsActivity extends tabsNav implements
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		actionBar = getActionBar();
 		mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+		tabs = getResources().getStringArray(R.array.detailsTabs);
 
 		viewPager.setAdapter(mAdapter);
-		actionBar.setHomeButtonEnabled(false);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);		
 
 		// Adding Tabs
@@ -65,6 +66,7 @@ public class DetailsActivity extends tabsNav implements
 			public void onPageScrollStateChanged(int arg0) {
 			}
 		});
+		super.onCreate(savedInstanceState);
 	}
 
 	@Override
@@ -80,6 +82,17 @@ public class DetailsActivity extends tabsNav implements
 
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+	}
+	
+	@Override
+	public void onBackPressed() {
+		if(getSupportFragmentManager().getBackStackEntryCount() == 1)
+		{
+			
+			viewPager.setVisibility(0);
+			actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		}
+			super.onBackPressed();
 	}
 
 }
