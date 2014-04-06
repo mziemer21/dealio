@@ -5,5 +5,6 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="lib" path="libs/KiiSDK 2.1 - ANDROID KiiCloudStorageSDK-release-v2.1.20-18e7e47.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

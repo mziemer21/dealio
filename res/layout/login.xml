@@ -16,8 +16,26 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:text="Skip" />
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="Login with Facebook" 
+                android:onClick="onButtonClick"/>
             
         </RelativeLayout>
     
+        <LinearLayout
+                android:layout_width="match_parent"
+   				android:layout_height="match_parent"
+    			android:orientation="vertical" >
+            
+            
+            
+        </LinearLayout>
+            
 
 </LinearLayout>

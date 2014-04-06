@@ -18,12 +18,17 @@
         <activity
             android:name="com.example.dealio.MainActivity"
             android:label="@string/app_name" >
+
+        </activity>
+        
+        <activity
+            android:name="com.example.dealio.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name="com.example.dealio.TabsFragmentActivity"
                   android:label="@string/app_name"></activity>
         
