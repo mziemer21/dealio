@@ -1,10 +1,11 @@
 package com.example.dealio;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 
 /****
  * This is a fragment launched from the nav drawer
@@ -21,7 +22,6 @@ public class HomeFragment extends Fragment {
             Bundle savedInstanceState) {
  
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-         
         return rootView;
     }
 }

@@ -1,6 +1,8 @@
 package com.example.dealio;
 
+import android.app.Fragment;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.dealio.navDrawer.NavDrawerActivity;
 
@@ -11,9 +13,9 @@ import com.example.dealio.navDrawer.NavDrawerActivity;
  */
 public class MainActivity extends NavDrawerActivity{
 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	}
+	
 }

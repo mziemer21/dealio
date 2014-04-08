@@ -17,6 +17,5 @@
         android:src="@drawable/ic_home"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"/>
-    
 
 </RelativeLayout>

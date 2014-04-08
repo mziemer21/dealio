@@ -3,6 +3,7 @@ package com.example.dealio;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ public class LoginActivity extends Activity {
 	final String FB_APPID = "442305385916318";
     @Override
     public void onCreate(Bundle savedInstanceState) {
+    	
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.login);
@@ -34,14 +36,18 @@ public class LoginActivity extends Activity {
         switch (v.getId()){
 
             case R.id.btnLogin:
-            	authenticate();
+            	loginWithFacebook();
             	break;
+            	
+            case R.id.btnSkip:
+            	Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            	startActivity(i);
             	
         }
         
     }
     
-    public void authenticate() {
+    protected void loginWithFacebook() {
     	Activity activity = this;
     	KiiSocialConnect conn = Kii.socialConnect(SocialNetwork.FACEBOOK);
     	conn.initialize(FB_APPID, null, null);
@@ -55,7 +61,7 @@ public class LoginActivity extends Activity {
     	  @Override
     	  public void onLoginCompleted(SocialNetwork network, KiiUser user, Exception exception) {
     	    if (exception == null) {
-    	      Toast.makeText(getApplicationContext(), "Login was a success", Toast.LENGTH_SHORT).show();
+
     	    } else {
     	      // Failure. handle error.
       	      Toast.makeText(getApplicationContext(), "Login FAILED", Toast.LENGTH_SHORT).show();
@@ -64,12 +70,18 @@ public class LoginActivity extends Activity {
     	});
     }
     
+
+    
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
       Kii.socialConnect(SocialNetwork.FACEBOOK).respondAuthOnActivityResult(
         requestCode,
         resultCode,
         data);
+      	if (resultCode == RESULT_OK) {
+      		Intent i = new Intent(getApplicationContext(), MainActivity.class);
+      		startActivity(i); //After authenticating with FB redirect to MainActivity
+      	}
     }
 
 }
