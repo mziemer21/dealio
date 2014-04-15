@@ -1,8 +1,6 @@
 package com.example.dealio;
 
-import android.app.Fragment;
 import android.os.Bundle;
-import android.view.View;
 
 import com.example.dealio.navDrawer.NavDrawerActivity;
 

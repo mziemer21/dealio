@@ -24,4 +24,5 @@ public class HomeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         return rootView;
     }
+	
 }

@@ -19,11 +19,15 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.dealio.ChangeLocationFragment;
+import com.example.dealio.DealActivity;
 import com.example.dealio.FeedbackFragment;
 import com.example.dealio.HomeFragment;
+import com.example.dealio.ListActivity;
 import com.example.dealio.LogoutFragment;
+import com.example.dealio.MapActivity;
 import com.example.dealio.NotificationsFragment;
 import com.example.dealio.R;
+import com.example.dealio.RandomActivity;
 import com.example.dealio.tabs.DetailsActivity;
 
 
@@ -239,6 +243,38 @@ public class NavDrawerActivity extends FragmentActivity {
 		super.onConfigurationChanged(newConfig);
 		// Pass any configuration change to the drawer toggls
 		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
+	
+	
+	/*** For home fragment buttons ***/
+	public void onButtonClick(View v)
+	{
+		
+		switch(v.getId())
+		{
+		case R.id.buttonList:
+			Intent ListActivity = new Intent(NavDrawerActivity.this, ListActivity.class);
+	        startActivity(ListActivity);
+			break;
+			
+		case R.id.buttonDeals:
+			Intent DealActivity = new Intent(NavDrawerActivity.this, DealActivity.class);
+			startActivity(DealActivity);
+			break;
+			
+		case R.id.buttonMap:
+			Intent MapActivity = new Intent(NavDrawerActivity.this, MapActivity.class);
+			startActivity(MapActivity);
+			break;
+		
+		case R.id.buttonRandom:
+			Intent RandomActivity = new Intent(NavDrawerActivity.this, RandomActivity.class);
+			startActivity(RandomActivity);
+			break;
+			
+			default:
+			
+		}
 	}
 
 }
