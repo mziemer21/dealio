@@ -82,10 +82,16 @@ public class ListActivity extends Activity {
                 public void onItemClick(AdapterView<?> parent, View view,
                         int position, long id) {
                     // Send single item click data to SingleItemView Class
-                    Intent i = new Intent(ListActivity.this,
+                Intent i = new Intent(ListActivity.this,
                     		ListItemActivity.class);
                     // Pass data "name" followed by the position
                     i.putExtra("name", ob.get(position).getString("name")
+                            .toString());
+                    i.putExtra("description", ob.get(position).getString("description")
+                            .toString());
+                    i.putExtra("price", ob.get(position).getInt("price"));
+                    i.putExtra("rating", ob.get(position).getString("rating"));
+                    i.putExtra("address", ob.get(position).getString("address")
                             .toString());
                     // Open SingleItemView.java Activity
                     startActivity(i);

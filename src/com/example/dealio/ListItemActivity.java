@@ -7,8 +7,8 @@ import android.widget.TextView;
  
 public class ListItemActivity extends Activity {
     // Declare Variables
-    TextView txtname;
-    String name;
+    TextView txtName, txtDescription, txtPrice, txtRating, txtAddress;
+    String name, description, rating, price, address;
  
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -21,12 +21,24 @@ public class ListItemActivity extends Activity {
  
         // Get the name
         name = i.getStringExtra("name");
+        description = i.getStringExtra("description");
+        rating = Integer.toString(i.getIntExtra("rating", 0));
+        price = Integer.toString(i.getIntExtra("price", 0));
+        address = i.getStringExtra("address");
  
         // Locate the TextView in singleitemview.xml
-        txtname = (TextView) findViewById(R.id.name);
+        txtName = (TextView) findViewById(R.id.name);
+        txtDescription = (TextView) findViewById(R.id.description);
+        txtPrice = (TextView) findViewById(R.id.price);
+        txtRating = (TextView) findViewById(R.id.rating);
+        txtAddress = (TextView) findViewById(R.id.address);
  
         // Load the text into the TextView
-        txtname.setText(name);
+        txtName.setText(name);
+        txtDescription.setText(description);
+        txtPrice.setText(price);
+        txtRating.setText(rating);
+        txtAddress.setText(address);
  
     }
 }
