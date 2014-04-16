@@ -1,11 +1,11 @@
 package com.example.dealio;
 
+import android.app.Application;
+
 import com.parse.Parse;
 import com.parse.ParseACL;
- 
+import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
- 
-import android.app.Application;
  
 public class ParseApplication extends Application {
  
@@ -18,7 +18,9 @@ public class ParseApplication extends Application {
  
         ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();
- 
+        
+        ParseFacebookUtils.initialize("1403369603273131");
+        
         // If you would like all objects to be private by default, remove this line.
         defaultACL.setPublicReadAccess(true);
  

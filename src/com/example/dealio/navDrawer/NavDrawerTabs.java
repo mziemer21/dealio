@@ -25,16 +25,11 @@ import android.widget.ListView;
 import com.example.dealio.ChangeLocationFragment;
 import com.example.dealio.FeedbackFragment;
 import com.example.dealio.HomeFragment;
-import com.example.dealio.LogoutFragment;
+import com.example.dealio.LogoutActivity;
 import com.example.dealio.NotificationsFragment;
 import com.example.dealio.R;
 import com.example.dealio.tabs.DetailsActivity;
 
-/***
- * FragmentActivity class that creates a nav drawer
- * @author zieme_000
- *
- */
 public class NavDrawerTabs extends FragmentActivity {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -185,7 +180,8 @@ public class NavDrawerTabs extends FragmentActivity {
 			fragment = new NotificationsFragment();
 			break;
 		case 2:
-			fragment = new LogoutFragment();
+			Intent userDetailsFragment = new Intent(this, LogoutActivity.class);
+	        startActivity(userDetailsFragment);
 			break;
 		case 3:
 			fragment = new ChangeLocationFragment();

@@ -23,7 +23,7 @@ import com.example.dealio.DealActivity;
 import com.example.dealio.FeedbackFragment;
 import com.example.dealio.HomeFragment;
 import com.example.dealio.ListActivity;
-import com.example.dealio.LogoutFragment;
+import com.example.dealio.LogoutActivity;
 import com.example.dealio.MapActivity;
 import com.example.dealio.NotificationsFragment;
 import com.example.dealio.R;
@@ -187,7 +187,8 @@ public class NavDrawerActivity extends FragmentActivity {
 			fragment = new NotificationsFragment();
 			break;
 		case 2:
-			fragment = new LogoutFragment();
+			Intent userDetailsFragment = new Intent(this, LogoutActivity.class);
+	        startActivity(userDetailsFragment);
 			break;
 		case 3:
 			fragment = new ChangeLocationFragment();
