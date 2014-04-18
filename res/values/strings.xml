@@ -6,7 +6,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="drawer_open">Slider Menu Opened</string>
     <string name="drawer_close">Slider Menu Closed</string>
-    <string name="namelabel">"Name : "</string>
+    <string name="name">"Name : "</string>
+    <string name="skip">Skip</string>
+    <string name="add_deal">Add Deal</string>
+    <string name="add_review">Add Review</string>
+    <string name="add_picture">Add Picture</string>
     <!-- Facebook -->
     <string name="app_id">YOUR_FACEBOOK_APP_ID</string>
     <string name="login">Log In</string>

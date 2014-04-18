@@ -18,6 +18,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
@@ -32,7 +33,7 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.login);
+		setContentView(R.layout.activity_login);
 
 		// Check if there is a currently logged in user
 		// and they are linked to a Facebook account.

@@ -13,6 +13,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.dealio.tabs.DetailsActivity;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
  
@@ -83,7 +84,7 @@ public class ListActivity extends Activity {
                         int position, long id) {
                     // Send single item click data to SingleItemView Class
                 Intent i = new Intent(ListActivity.this,
-                    		ListItemActivity.class);
+                		DetailsActivity.class);
                     // Pass data "name" followed by the position
                     i.putExtra("name", ob.get(position).getString("name")
                             .toString());

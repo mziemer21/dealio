@@ -4,13 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#fa6a6a" >
-    
-    <TextView android:layout_width="fill_parent"
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Deals"
-        android:textSize="20dp"
-        android:layout_centerInParent="true"/>
-    
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="@string/add_deal"
+        android:onClick="onButtonClick" />
 
 </RelativeLayout>

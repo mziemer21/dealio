@@ -14,7 +14,7 @@ public class ListItemActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Get the view from singleitemview.xml
-        setContentView(R.layout.single_list_item);
+        setContentView(R.layout.fragment_details);
  
         // Retrieve data from MainActivity on item click event
         Intent i = getIntent();
