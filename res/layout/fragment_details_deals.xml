@@ -6,7 +6,7 @@
     android:background="#fa6a6a" >
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/add_deal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -86,12 +86,13 @@ public class ListActivity extends Activity {
                 Intent i = new Intent(ListActivity.this,
                 		DetailsActivity.class);
                     // Pass data "name" followed by the position
+                	i.putExtra("establishment_id", ob.get(position).getObjectId().toString());
                     i.putExtra("name", ob.get(position).getString("name")
                             .toString());
                     i.putExtra("description", ob.get(position).getString("description")
                             .toString());
                     i.putExtra("price", ob.get(position).getInt("price"));
-                    i.putExtra("rating", ob.get(position).getString("rating"));
+                    i.putExtra("rating", ob.get(position).getInt("rating"));
                     i.putExtra("address", ob.get(position).getString("address")
                             .toString());
                     // Open SingleItemView.java Activity

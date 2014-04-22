@@ -56,6 +56,9 @@
         <activity android:name="com.example.dealio.LogoutActivity"
                   android:label="@string/app_name" />
         
+        <activity android:name="com.example.dealio.tabs.DealAddActivity"
+                  android:label="@string/app_name" />
+        
         <meta-data android:name="com.facebook.sdk.ApplicationId" 
             android:value="1403369603273131"/>
         

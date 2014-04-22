@@ -108,7 +108,7 @@ public class DetailsActivity extends NavDrawerTabs implements
     public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
 
     	//Declare Variables
-    	String name, description, address;
+    	String establishment_id, name, description, address;
     	Integer rating, price;
     	
         public AppSectionsPagerAdapter(FragmentManager fm) {
@@ -118,40 +118,52 @@ public class DetailsActivity extends NavDrawerTabs implements
         /* Used to pass arguments to the tab fragments */
         @Override
         public Fragment getItem(int i) {
+        	
+        	// Get the arguments from intent
+            establishment_id = intent.getStringExtra("establishment_id");
+            name = intent.getStringExtra("name");
+            description = intent.getStringExtra("description");
+            rating = intent.getIntExtra("rating", 0);
+            price = intent.getIntExtra("price", 0);
+            address = intent.getStringExtra("address");
+            
+            // Create a bundle, assign it arguments
+            Bundle bundle = new Bundle();
+            bundle.putString("establishment_id", establishment_id);
+            bundle.putString("name", name);
+            bundle.putString("description", description);
+            bundle.putInt("rating", rating);
+            bundle.putInt("price", price);
+            bundle.putString("address", address);
+        	
             switch (i) {
                 case 0:
                     // The other sections of the app are dummy placeholders.
                     Fragment fragmentDetails = new DetailsTabFragment();                     
              
-                    // Get the arguments from intent
-                    name = intent.getStringExtra("name");
-                    description = intent.getStringExtra("description");
-                    rating = intent.getIntExtra("rating", 0);
-                    price = intent.getIntExtra("price", 0);
-                    address = intent.getStringExtra("address");
-                    
-                    // Create a bundle, assign it arguments
-                    Bundle bundle = new Bundle();
-                    bundle.putString("name", name);
-                    bundle.putString("description", description);
-                    bundle.putInt("rating", rating);
-                    bundle.putInt("price", price);
-                    bundle.putString("address", address);
-                    
                     //add the bundle to the fragment
                     fragmentDetails.setArguments(bundle);
                     return fragmentDetails;
 
                 case 1:
-                	Fragment fragmentDeals = new DealsTabFragment();  
+                	Fragment fragmentDeals = new DealsTabFragment(); 
+                	
+                	//add the bundle to the fragment
+                    fragmentDeals.setArguments(bundle);
                 	return fragmentDeals;
                 	
                 case 2:
                 	Fragment fragmentReviews = new ReviewsTabFragment();
+                	
+                	//add the bundle to the fragment
+                    fragmentReviews.setArguments(bundle);
                 	return fragmentReviews;
                 	
                 case 3:
                 	Fragment fragmentPictures = new PicturesTabFragment();
+                	
+                	//add the bundle to the fragment
+                    fragmentPictures.setArguments(bundle);
                 	return fragmentPictures;
                 	
                 default:
