@@ -18,8 +18,6 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
-
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
@@ -44,20 +42,21 @@ public class LoginActivity extends Activity {
 		}
 		
 		// Add code to print out the key hash
-	    try {
-	        PackageInfo info = getPackageManager().getPackageInfo(
-	                "com.facebook.samples.hellofacebook", 
-	                PackageManager.GET_SIGNATURES);
-	        for (Signature signature : info.signatures) {
-	            MessageDigest md = MessageDigest.getInstance("SHA");
-	            md.update(signature.toByteArray());
-	            Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-	            }
-	    } catch (NameNotFoundException e) {
-
-	    } catch (NoSuchAlgorithmException e) {
-
-	    }
+		try{ 
+			Log.d("Hash start", "Checking signs");
+		    PackageInfo info = getPackageManager().getPackageInfo(this.getPackageName(), PackageManager.GET_SIGNATURES);
+		    for (Signature signature : info.signatures) {
+		        MessageDigest md = MessageDigest.getInstance("SHA");
+		        md.update(signature.toByteArray());
+		        Log.d("Hash reslut", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+		    }
+		} catch (NameNotFoundException e) {
+		    e.printStackTrace();
+		    Log.d("Hash error", e.getMessage());
+		} catch (NoSuchAlgorithmException e) {
+		    e.printStackTrace();
+		    Log.d("Hash error", e.getMessage());
+		}
 	}
 	
 	public void onButtonClick(View v){
@@ -90,7 +89,7 @@ public class LoginActivity extends Activity {
 	private void onLoginButtonClicked() {
 		LoginActivity.this.progressDialog = ProgressDialog.show(
 				LoginActivity.this, "", "Logging in...", true);
-		List<String> permissions = Arrays.asList("basic_info", "user_about_me",
+		List<String> permissions = Arrays.asList("public_profile", "user_about_me",
 				"user_relationships", "user_birthday", "user_location");
 		ParseFacebookUtils.logIn(permissions, this, new LogInCallback() {
 			@Override
