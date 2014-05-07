@@ -13,12 +13,18 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
@@ -30,6 +36,7 @@ public class MapActivity extends FragmentActivity implements LocationListener {
 	List<ParseObject> ob;
     ProgressDialog mProgressDialog;
     ArrayAdapter<String> adapter;
+    private Button markerButton;
 	
  @Override
  protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +68,49 @@ public class MapActivity extends FragmentActivity implements LocationListener {
 	  loadMapOnUser(location);
   }
   locationManager.requestLocationUpdates(provider, 20000, 0, this);
+  
+//Setting a custom info window adapter for the google map
+  myMap.setInfoWindowAdapter(new InfoWindowAdapter() {
+
+      // Use default InfoWindow frame
+      @Override
+      public View getInfoWindow(Marker arg0) {
+          return null;
+      }
+
+      // Defines the contents of the InfoWindow
+      @Override
+      public View getInfoContents(Marker arg0) {
+
+          // Getting view from the layout file info_window_layout
+          View v = getLayoutInflater().inflate(R.layout.map_marker_info, null);
+
+          // Getting the position from the marker
+          LatLng latLng = arg0.getPosition();
+
+          // Getting reference to the TextView to set latitude
+          TextView markerName = (TextView) v.findViewById(R.id.markerName);
+
+          markerButton = (Button) v.findViewById(R.id.markerButton);
+
+          // Setting the latitude
+          markerName.setText(arg0.getTitle());
+
+          // Setting the longitude
+          markerButton .setOnClickListener(new OnClickListener() {
+ 
+			  @Override
+			  public void onClick(View arg0) {
+				  
+			  }
+			  
+          });
+
+          // Returning the view containing InfoWindow contents
+          return v;
+
+      }
+  });
   
 //Execute RemoteDataTask AsyncTask
   new RemoteDataTask().execute();
