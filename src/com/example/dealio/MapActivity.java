@@ -88,11 +88,10 @@ public class MapActivity extends FragmentActivity implements LocationListener {
           // Getting view from the layout file info_window_layout
           View v = getLayoutInflater().inflate(R.layout.map_marker_info, null);
 
-          // Getting the position from the marker
-          LatLng latLng = arg0.getPosition();
-
           // Getting reference to the TextView to set latitude
           TextView markerName = (TextView) v.findViewById(R.id.markerName);
+          
+          markerName.setText(arg0.getTitle());
 
           myMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
               @Override
@@ -168,7 +167,7 @@ public class MapActivity extends FragmentActivity implements LocationListener {
     	  
     	  myMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
     	  
-    	  myMap.getUiSettings().setZoomControlsEnabled(true);
+    	  myMap.getUiSettings().setZoomControlsEnabled(false);
     	  myMap.getUiSettings().setCompassEnabled(true);
     	  myMap.getUiSettings().setMyLocationButtonEnabled(true);
     	  myMap.getUiSettings().setTiltGesturesEnabled(false);
