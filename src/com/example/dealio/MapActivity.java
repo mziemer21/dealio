@@ -2,10 +2,9 @@ package com.example.dealio;
 
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
-import com.example.dealio.navDrawer.NavDrawerTabs;
-
-public class MapActivity extends NavDrawerTabs {
+public class MapActivity extends FragmentActivity {
 
  @Override
  protected void onCreate(Bundle savedInstanceState) {
