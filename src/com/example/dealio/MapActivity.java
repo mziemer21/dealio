@@ -58,7 +58,7 @@ public class MapActivity extends FragmentActivity implements LocationListener {
   Location location = locationManager.getLastKnownLocation(provider);
 
   if(location!=null){
-      onLocationChanged(location);
+	  loadMapOnUser(location);
   }
   locationManager.requestLocationUpdates(provider, 20000, 0, this);
   
@@ -126,6 +126,10 @@ public class MapActivity extends FragmentActivity implements LocationListener {
  
  @Override
  public void onLocationChanged(Location location) {
+
+ }
+ 
+ public void loadMapOnUser(Location location) {
 
      // Getting latitude of the current location
      double latitude = location.getLatitude();
