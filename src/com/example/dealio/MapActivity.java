@@ -14,10 +14,13 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -108,6 +111,13 @@ public class MapActivity extends FragmentActivity implements LocationListener {
     	  myMap.getUiSettings().setCompassEnabled(true);
     	  myMap.getUiSettings().setMyLocationButtonEnabled(true);
     	  myMap.getUiSettings().setTiltGesturesEnabled(false);
+    	  
+    	  for (ParseObject establishment : ob) {
+    		  ParseGeoPoint tempLoc = (ParseGeoPoint) establishment.get("location");
+    		  MarkerOptions marker = new MarkerOptions().position(new LatLng(tempLoc.getLatitude(), tempLoc.getLongitude())).title((String) establishment.get("name"));
+    		// adding marker
+    		  myMap.addMarker(marker);
+    	  }
     	  
     	  mProgressDialog.dismiss();
      }
