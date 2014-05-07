@@ -1,9 +1,12 @@
 package com.example.dealio;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -14,14 +17,14 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.dealio.tabs.DetailsActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -36,7 +39,7 @@ public class MapActivity extends FragmentActivity implements LocationListener {
 	List<ParseObject> ob;
     ProgressDialog mProgressDialog;
     ArrayAdapter<String> adapter;
-    private Button markerButton;
+    Map<Marker, ParseObject> theMap = new HashMap<Marker, ParseObject>();
 	
  @Override
  protected void onCreate(Bundle savedInstanceState) {
@@ -91,19 +94,27 @@ public class MapActivity extends FragmentActivity implements LocationListener {
           // Getting reference to the TextView to set latitude
           TextView markerName = (TextView) v.findViewById(R.id.markerName);
 
-          markerButton = (Button) v.findViewById(R.id.markerButton);
+          myMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+              @Override
+              public void onInfoWindowClick(Marker marker) {
+            	  Intent i = new Intent(MapActivity.this,
+                  		DetailsActivity.class);
+                      // Pass data "name" followed by the position
+            	  ParseObject establishment = theMap.get(marker);
 
-          // Setting the latitude
-          markerName.setText(arg0.getTitle());
+                  	i.putExtra("establishment_id", establishment.getObjectId().toString());
+                      i.putExtra("name", establishment.getString("name")
+                              .toString());
+                      i.putExtra("description", establishment.getString("description")
+                              .toString());
+                      i.putExtra("price", establishment.getInt("price"));
+                      i.putExtra("rating", establishment.getInt("rating"));
+                      i.putExtra("address", establishment.getString("address")
+                              .toString());
+                      // Open SingleItemView.java Activity
+                      startActivity(i);
 
-          // Setting the longitude
-          markerButton .setOnClickListener(new OnClickListener() {
- 
-			  @Override
-			  public void onClick(View arg0) {
-				  
-			  }
-			  
+              }
           });
 
           // Returning the view containing InfoWindow contents
@@ -164,9 +175,12 @@ public class MapActivity extends FragmentActivity implements LocationListener {
     	  
     	  for (ParseObject establishment : ob) {
     		  ParseGeoPoint tempLoc = (ParseGeoPoint) establishment.get("location");
-    		  MarkerOptions marker = new MarkerOptions().position(new LatLng(tempLoc.getLatitude(), tempLoc.getLongitude())).title((String) establishment.get("name"));
-    		// adding marker
-    		  myMap.addMarker(marker);
+    		
+    		  Marker marker = myMap.addMarker(new MarkerOptions().position(new LatLng(tempLoc.getLatitude(), tempLoc.getLongitude())).title((String) establishment.get("name")));
+    		  
+    		  theMap.put(marker, establishment);
+    		  // adding marker
+    		  
     	  }
     	  
     	  mProgressDialog.dismiss();
