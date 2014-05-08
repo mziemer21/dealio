@@ -124,18 +124,12 @@ public class DealsTabFragment extends Fragment {
                 public void onItemClick(AdapterView<?> parent, View view,
                         int position, long id) {
                     // Send single item click data to SingleItemView Class
-                Intent i = new Intent(getActivity(),
-                		DetailsActivity.class);
+                 Intent i = new Intent(getActivity(),
+                		DealsDetailsActivity.class);
                     // Pass data "name" followed by the position
-                	i.putExtra("establishment_id", ob.get(position).getObjectId().toString());
-                    i.putExtra("name", ob.get(position).getString("name")
-                            .toString());
-                    i.putExtra("description", ob.get(position).getString("description")
-                            .toString());
-                    i.putExtra("price", ob.get(position).getInt("price"));
-                    i.putExtra("rating", ob.get(position).getInt("rating"));
-                    i.putExtra("address", ob.get(position).getString("address")
-                            .toString());
+                	i.putExtra("deal_id", ob.get(position).getObjectId().toString());
+                    i.putExtra("deal_details", ob.get(position).getString("details").toString());
+                    i.putExtra("deal_title", ob.get(position).getString("title").toString());
                     // Open SingleItemView.java Activity
                     startActivity(i);
                 }
