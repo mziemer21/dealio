@@ -1,15 +1,26 @@
 package com.example.dealio.tabs;
 
+import java.util.List;
+
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.example.dealio.R;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 /***
  * Tab used by details fragment
@@ -21,6 +32,11 @@ public class DealsTabFragment extends Fragment {
 
 	private Button addButton;
 	Bundle extras;
+	// Declare Variables
+    ListView listview;
+    List<ParseObject> ob;
+    ProgressDialog mProgressDialog;
+    ArrayAdapter<String> adapter;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,6 +69,77 @@ public class DealsTabFragment extends Fragment {
 			  }
 		});
 		
+		new RemoteDataTask().execute();
 		return rootView;
 	}
+	
+	// RemoteDataTask AsyncTask
+    private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            // Create a progressdialog
+            /*mProgressDialog = new ProgressDialog(ListActivity.this);
+            // Set progressdialog message
+            mProgressDialog.setMessage("Loading...");
+            mProgressDialog.setIndeterminate(false);
+            // Show progressdialog
+            mProgressDialog.show();*/
+        }
+ 
+        @Override
+        protected Void doInBackground(Void... params) {
+        	String id = extras.getString("establishment_id").toString();
+            // Locate the class table named "establishment" in Parse.com
+            ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+                    "Deal");//.whereEqualTo("establishment", "avEE1IKKZZ");
+            query.orderByDescending("_created_at");
+            try {
+                ob = query.find();
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return null;
+        }
+ 
+        @Override
+        protected void onPostExecute(Void result) {
+            // Locate the listview in listview_main.xml
+            listview = (ListView) getView().findViewById(R.id.deal_tab_listview);
+            // Pass the results into an ArrayAdapter
+            adapter = new ArrayAdapter<String>(getActivity(),
+                    R.layout.listview_item);
+            // Retrieve object "name" from Parse.com database
+            for (ParseObject deal : ob) {
+                adapter.add((String) deal.get("title"));
+            }
+            // Binds the Adapter to the ListView
+            listview.setAdapter(adapter);
+            // Close the progressdialog
+            //mProgressDialog.dismiss();
+            // Capture button clicks on ListView items
+            listview.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view,
+                        int position, long id) {
+                    // Send single item click data to SingleItemView Class
+                Intent i = new Intent(getActivity(),
+                		DetailsActivity.class);
+                    // Pass data "name" followed by the position
+                	i.putExtra("establishment_id", ob.get(position).getObjectId().toString());
+                    i.putExtra("name", ob.get(position).getString("name")
+                            .toString());
+                    i.putExtra("description", ob.get(position).getString("description")
+                            .toString());
+                    i.putExtra("price", ob.get(position).getInt("price"));
+                    i.putExtra("rating", ob.get(position).getInt("rating"));
+                    i.putExtra("address", ob.get(position).getString("address")
+                            .toString());
+                    // Open SingleItemView.java Activity
+                    startActivity(i);
+                }
+            });
+        }
+    }
 }
