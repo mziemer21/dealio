@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <EditText
+        android:id="@+id/review_title_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/review_title_label"
+        android:layout_marginLeft="31dp"
+        android:layout_toRightOf="@+id/review_title_label"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/review_title_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Title" />
+
+    <TextView
+        android:id="@+id/review_rating_lable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/review_title_label"
+        android:layout_alignTop="@+id/review_rating_input"
+        android:layout_marginTop="14dp"
+        android:text="Rating" />
+
+    <TextView
+        android:id="@+id/review_details_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/review_title_label"
+        android:layout_below="@+id/review_rating_input"
+        android:layout_marginTop="14dp"
+        android:text="Details" />
+
+    <EditText
+        android:id="@+id/review_details_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/review_rating_input"
+        android:layout_below="@+id/review_rating_input"
+        android:ems="10"
+        android:inputType="textMultiLine" />
+
+    <RatingBar
+        android:id="@+id/review_rating_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/review_title_input"
+        android:layout_below="@+id/review_title_input" />
+
+    <Button
+        android:id="@+id/review_submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/review_rating_input"
+        android:layout_below="@+id/review_details_input"
+        android:layout_marginTop="14dp"
+        android:text="Submit" />
+
+</RelativeLayout>

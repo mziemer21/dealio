@@ -74,7 +74,13 @@
         <activity android:name="com.example.dealio.tabs.DealAddActivity"
                   android:label="@string/app_name" />
         
+        <activity android:name="com.example.dealio.tabs.ReviewAddActivity"
+                  android:label="@string/app_name" />
+        
         <activity android:name="com.example.dealio.tabs.DealsDetailsActivity"
+                  android:label="@string/app_name" />
+        
+        <activity android:name="com.example.dealio.tabs.ReviewsDetailsActivity"
                   android:label="@string/app_name" />
         
         <meta-data android:name="com.facebook.sdk.ApplicationId" 
