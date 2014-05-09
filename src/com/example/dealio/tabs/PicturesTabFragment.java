@@ -74,7 +74,7 @@ public class PicturesTabFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            // Create a progressdialog
+            /*// Create a progressdialog
             mProgressDialog = new ProgressDialog(getActivity());
             // Set progressdialog title
             mProgressDialog.setTitle("Parse.com GridView Tutorial");
@@ -82,16 +82,25 @@ public class PicturesTabFragment extends Fragment {
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
             // Show progressdialog
-            mProgressDialog.show();
+            mProgressDialog.show();*/
         }
  
         @Override
         protected Void doInBackground(Void... params) {
+        	ParseObject est = null;
+        	ParseQuery<ParseObject> queryEstablishment = ParseQuery.getQuery("Establishment");
+			queryEstablishment.whereEqualTo("objectId", extras.getString("establishment_id"));
+			try {
+				est = queryEstablishment.getFirst();
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
             // Create the array
             picarraylist = new ArrayList<ImageList>();
             try {
                 ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-                        "Image");
+                        "Image").whereEqualTo("establishment", est);
                 // Locate the column named "position" in Parse.com and order list
                 // by ascending
                 query.orderByAscending("position");
@@ -118,7 +127,7 @@ public class PicturesTabFragment extends Fragment {
             // Binds the Adapter to the ListView
             gridview.setAdapter(adapter);
             // Close the progressdialog
-            mProgressDialog.dismiss();
+            //mProgressDialog.dismiss();
         }
     }
 }

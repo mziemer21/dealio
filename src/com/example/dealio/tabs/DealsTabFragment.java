@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.dealio.R;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -78,8 +79,8 @@ public class DealsTabFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            // Create a progressdialog
-            /*mProgressDialog = new ProgressDialog(ListActivity.this);
+            /*// Create a progressdialog
+            mProgressDialog = new ProgressDialog(getActivity());
             // Set progressdialog message
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
@@ -89,10 +90,18 @@ public class DealsTabFragment extends Fragment {
  
         @Override
         protected Void doInBackground(Void... params) {
-        	String id = extras.getString("establishment_id").toString();
+        	ParseObject est = null;
+        	ParseQuery<ParseObject> queryEstablishment = ParseQuery.getQuery("Establishment");
+			queryEstablishment.whereEqualTo("objectId", extras.getString("establishment_id"));
+			try {
+				est = queryEstablishment.getFirst();
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
             // Locate the class table named "establishment" in Parse.com
             ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-                    "Deal");//.whereEqualTo("establishment", "avEE1IKKZZ");
+                    "Deal").whereEqualTo("establishment", est);
             query.orderByDescending("_created_at");
             try {
                 ob = query.find();
