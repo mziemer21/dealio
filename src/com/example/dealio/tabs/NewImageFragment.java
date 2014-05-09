@@ -1,18 +1,28 @@
 package com.example.dealio.tabs;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +42,9 @@ public class NewImageFragment extends Fragment {
 	private TextView imageTitle, imageTags;
 	private ParseImageView imagePreview;
 	Bundle extras;
+	private String imagePath;
+	private ParseFile photoFile;
+	static final int CAMERA_RESULT = 1;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -138,12 +151,75 @@ public class NewImageFragment extends Fragment {
 	 * camera is finished.
 	 */
 	public void startCamera() {
-		Fragment cameraFragment = new CameraFragment();
+		
+		Intent imageIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
+        File imagesFolder = new File(Environment.getExternalStorageDirectory(), "bar_images");
+        imagesFolder.mkdirs();
+
+        File image = new File(imagesFolder, "bar_image" + timeStamp + ".png");
+        Uri uriSavedImage = Uri.fromFile(image);
+
+        imageIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
+        imagePath = image.toString();
+        startActivityForResult(imageIntent, CAMERA_RESULT);
+        
+        
+        
+        
+		/*Fragment cameraFragment = new CameraFragment();
 		FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
 		transaction.replace(R.id.fragmentContainer, cameraFragment);
 		transaction.addToBackStack("NewImageFragment");
-		transaction.commit();
+		transaction.commit();*/
 	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CAMERA_RESULT) {
+        	
+        }
+        
+        
+        Bitmap bitmap = BitmapFactory.decodeFile(imagePath, null); //BitmapFactory.decodeResource(getResources(),R.drawable.androidbegin);
+        Bitmap imageImageScaled = Bitmap.createScaledBitmap(bitmap, 900, 900
+				* bitmap.getHeight() / bitmap.getWidth(), false);
+        
+        // Override Android default landscape orientation and save portrait
+		Matrix matrix = new Matrix();
+		matrix.postRotate(90);
+		Bitmap rotatedScaledImage = Bitmap.createBitmap(imageImageScaled, 0,
+				0, imageImageScaled.getWidth(), imageImageScaled.getHeight(),
+				matrix, true);
+        
+        // Convert it to byte
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        // Compress image to lower quality scale 1 - 100
+        rotatedScaledImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] imageByte = stream.toByteArray();
+
+        // Create the ParseFile
+        photoFile = new ParseFile("androidbegin.png", imageByte);
+        
+        photoFile.saveInBackground(new SaveCallback() {
+
+			public void done(ParseException e) {
+				if (e != null) {
+					Toast.makeText(getActivity(),
+							"Error saving: " + e.getMessage(),
+							Toast.LENGTH_LONG).show();
+				} else {
+					Toast.makeText(getActivity(), "Image saved, should preview", Toast.LENGTH_LONG).show();
+					imagePreview = (ParseImageView) getActivity().findViewById(R.id.image_preview_image);
+					imagePreview.setVisibility(View.VISIBLE);
+					((PictureAddActivity) getActivity()).getCurrentImage().setImageFile(photoFile);
+					
+				}
+			}
+		}); 
+         
+         
+    }
 
 	/*
 	 * On resume, check and see if a image photo has been set from the
