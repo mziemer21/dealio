@@ -5,6 +5,7 @@ import android.app.Application;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
  
 public class ParseApplication extends Application {
@@ -13,6 +14,8 @@ public class ParseApplication extends Application {
     public void onCreate() {
         super.onCreate();
  
+        ParseObject.registerSubclass(Image.class);
+        
         // Add your initialization code here
         Parse.initialize(this, "Ksym3TM0XpfJtOBUEuv7Htd8hvA8gb5a8RjgIV1n", "7LCbwiH8Z54OLqv47E3ZuBrklqphw6yYssOT8ZuH");
  
