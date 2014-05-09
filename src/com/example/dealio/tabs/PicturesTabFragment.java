@@ -1,15 +1,30 @@
 package com.example.dealio.tabs;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridView;
 
 import com.example.dealio.R;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+
+
+
 
 /***
  * Tab used by details fragment
@@ -19,7 +34,12 @@ import com.example.dealio.R;
  */
 public class PicturesTabFragment extends Fragment {
 
-	
+	// Declare Variables
+    GridView gridview;
+    List<ParseObject> ob;
+    ProgressDialog mProgressDialog;
+    GridViewAdapter adapter;
+    private List<ImageList> picarraylist = null;
 	Button addButton;
 	Bundle extras;
 	
@@ -45,7 +65,60 @@ public class PicturesTabFragment extends Fragment {
 
 			  }
 		});
-		
+		new RemoteDataTaskPicture().execute();
 		return rootView;
 	}
+	
+	// RemoteDataTask AsyncTask
+    private class RemoteDataTaskPicture extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            // Create a progressdialog
+            mProgressDialog = new ProgressDialog(getActivity());
+            // Set progressdialog title
+            mProgressDialog.setTitle("Parse.com GridView Tutorial");
+            // Set progressdialog message
+            mProgressDialog.setMessage("Loading...");
+            mProgressDialog.setIndeterminate(false);
+            // Show progressdialog
+            mProgressDialog.show();
+        }
+ 
+        @Override
+        protected Void doInBackground(Void... params) {
+            // Create the array
+            picarraylist = new ArrayList<ImageList>();
+            try {
+                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+                        "Image");
+                // Locate the column named "position" in Parse.com and order list
+                // by ascending
+                query.orderByAscending("position");
+                ob = query.find();
+                for (ParseObject pic : ob) {
+                    ParseFile image = (ParseFile) pic.get("image");
+                    ImageList map = new ImageList();
+                    map.setPicture(image.getUrl());
+                    picarraylist.add(map);
+                }
+            } catch (ParseException e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return null;
+        }
+ 
+        @Override
+        protected void onPostExecute(Void result) {
+            // Locate the gridview in gridview_main.xml
+            gridview = (GridView) getActivity().findViewById(R.id.picture_grid_view);
+            // Pass the results into ListViewAdapter.java
+            adapter = new GridViewAdapter(getActivity(), picarraylist);
+            // Binds the Adapter to the ListView
+            gridview.setAdapter(adapter);
+            // Close the progressdialog
+            mProgressDialog.dismiss();
+        }
+    }
 }

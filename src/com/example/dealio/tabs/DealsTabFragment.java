@@ -69,12 +69,12 @@ public class DealsTabFragment extends Fragment {
 			  }
 		});
 		
-		new RemoteDataTask().execute();
+		new RemoteDataTaskDeal().execute();
 		return rootView;
 	}
 	
 	// RemoteDataTask AsyncTask
-    private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
+    private class RemoteDataTaskDeal extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();

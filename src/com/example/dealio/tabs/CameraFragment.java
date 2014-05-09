@@ -150,8 +150,8 @@ public class CameraFragment extends Fragment {
 
 		/*
 		 * Once the photo has saved successfully, we're ready to return to the
-		 * NewMealFragment. When we added the CameraFragment to the back stack, we
-		 * named it "NewMealFragment". Now we'll pop fragments off the back stack
+		 * NewImageFragment. When we added the CameraFragment to the back stack, we
+		 * named it "NewImageFragment". Now we'll pop fragments off the back stack
 		 * until we reach that Fragment.
 		 */
 		private void addPhotoToImageAndReturn(ParseFile photoFile) {

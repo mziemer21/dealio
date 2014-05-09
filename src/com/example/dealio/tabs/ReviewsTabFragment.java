@@ -68,12 +68,12 @@ public class ReviewsTabFragment extends Fragment {
 			  }
 		});
 		
-		new RemoteDataTask().execute();
+		new RemoteDataTaskReview().execute();
 		return rootView;
 	}
 	
 	// RemoteDataTask AsyncTask
-    private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
+    private class RemoteDataTaskReview extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
