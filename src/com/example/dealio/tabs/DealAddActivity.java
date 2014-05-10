@@ -16,6 +16,7 @@ import android.widget.TimePicker;
 
 import com.example.dealio.R;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -46,6 +47,7 @@ public class DealAddActivity extends Activity {
 				ParseObject establishment = null, deal_type = null;
 				Calendar myCal = makeCalender();
 				Date myDate;
+				ParseGeoPoint location = null;
 				
 				ParseObject deal = new ParseObject("Deal");
 				mEdit   = (EditText)findViewById(R.id.edit_deal_title);
@@ -79,6 +81,7 @@ public class DealAddActivity extends Activity {
 				try {
 					establishment = queryEstablishment.getFirst();
 					Log.d("establishment", establishment.toString());
+					location = establishment.getParseGeoPoint("location");
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -98,6 +101,7 @@ public class DealAddActivity extends Activity {
 				//spinner = (Spinner)findViewById(R.id.deal_type_switch);
 				deal.put("deal_type", deal_type);
 				deal.put("user", ParseUser.getCurrentUser());
+				deal.put("location", location);
 				try {
 					deal.save();
 				} catch (ParseException e) {
