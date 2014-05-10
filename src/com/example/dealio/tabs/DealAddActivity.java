@@ -8,14 +8,15 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.dealio.R;
 import com.parse.ParseException;
@@ -60,12 +61,14 @@ public class DealAddActivity extends Activity {
 	            	protected Void doInBackground(Void... params)
 	            	{
 						EditText mEdit;
-						Spinner spinner;
+						Switch switchType;
 						TimePicker tpResult;
 						ParseObject establishment = null, deal_type = null;
 						Calendar myCal = makeCalender();
 						Date myDate;
 						ParseGeoPoint location = null;
+						String switchText;
+						Spinner spinner;
 						
 						ParseObject deal = new ParseObject("Deal");
 						mEdit   = (EditText)findViewById(R.id.edit_deal_title);
@@ -105,8 +108,18 @@ public class DealAddActivity extends Activity {
 							e.printStackTrace();
 						}
 						
+						switchType = (Switch)findViewById(R.id.deal_type_switch);
+						if(switchType.isChecked())
+						{
+							switchText = "Food";
+						}
+						else
+						{
+							switchText = "Drinks";
+						}
+						Log.d("deal_type",  switchText);
 						ParseQuery<ParseObject> queryDealType = ParseQuery.getQuery("deal_type");
-						queryDealType.whereEqualTo("objectId", "YGWgOQjMKQ");
+						queryDealType.whereEqualTo("name", switchText);
 						try {
 							deal_type = queryDealType.getFirst();
 							Log.d("deal_type", deal_type.toString());
@@ -116,7 +129,6 @@ public class DealAddActivity extends Activity {
 						}
 					
 						deal.put("establishment", establishment);
-						//spinner = (Spinner)findViewById(R.id.deal_type_switch);
 						deal.put("deal_type", deal_type);
 						deal.put("user", ParseUser.getCurrentUser());
 						deal.put("location", location);
