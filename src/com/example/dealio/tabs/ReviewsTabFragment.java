@@ -36,7 +36,7 @@ public class ReviewsTabFragment extends Fragment {
 	ListView listview;
     List<ParseObject> ob;
     ProgressDialog mProgressDialog;
-    ArrayAdapter<String> adapter;
+    ArrayAdapter<String> reviewAdapter;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -109,14 +109,14 @@ public class ReviewsTabFragment extends Fragment {
             // Locate the listview in listview_main.xml
             listview = (ListView) getView().findViewById(R.id.review_tab_listview);
             // Pass the results into an ArrayAdapter
-            adapter = new ArrayAdapter<String>(getActivity(),
+            reviewAdapter = new ArrayAdapter<String>(getActivity(),
                     R.layout.listview_item);
             // Retrieve object "name" from Parse.com database
             for (ParseObject review : ob) {
-                adapter.add((String) review.get("title"));
+            	reviewAdapter.add((String) review.get("title"));
             }
             // Binds the Adapter to the ListView
-            listview.setAdapter(adapter);
+            listview.setAdapter(reviewAdapter);
             // Close the progressdialog
             //mProgressDialog.dismiss();
             // Capture button clicks on ListView items

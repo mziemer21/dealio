@@ -38,7 +38,7 @@ public class PicturesTabFragment extends Fragment {
     GridView gridview;
     List<ParseObject> ob;
     ProgressDialog mProgressDialog;
-    GridViewAdapter adapter;
+    GridViewAdapter pictureAdapter;
     private List<ImageList> picarraylist = null;
 	Button addButton;
 	Bundle extras;
@@ -74,15 +74,13 @@ public class PicturesTabFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            /*// Create a progressdialog
+            // Create a progressdialog
             mProgressDialog = new ProgressDialog(getActivity());
-            // Set progressdialog title
-            mProgressDialog.setTitle("Parse.com GridView Tutorial");
             // Set progressdialog message
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
             // Show progressdialog
-            mProgressDialog.show();*/
+            mProgressDialog.show();
         }
  
         @Override
@@ -123,11 +121,11 @@ public class PicturesTabFragment extends Fragment {
             // Locate the gridview in gridview_main.xml
             gridview = (GridView) getActivity().findViewById(R.id.picture_grid_view);
             // Pass the results into ListViewAdapter.java
-            adapter = new GridViewAdapter(getActivity(), picarraylist);
+            pictureAdapter = new GridViewAdapter(getActivity(), picarraylist);
             // Binds the Adapter to the ListView
-            gridview.setAdapter(adapter);
+            gridview.setAdapter(pictureAdapter);
             // Close the progressdialog
-            //mProgressDialog.dismiss();
+            mProgressDialog.dismiss();
         }
     }
 }

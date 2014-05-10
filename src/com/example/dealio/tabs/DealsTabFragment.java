@@ -37,7 +37,7 @@ public class DealsTabFragment extends Fragment {
     ListView listview;
     List<ParseObject> ob;
     ProgressDialog mProgressDialog;
-    ArrayAdapter<String> adapter;
+    ArrayAdapter<String> dealAdapter;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -117,14 +117,13 @@ public class DealsTabFragment extends Fragment {
             // Locate the listview in listview_main.xml
             listview = (ListView) getView().findViewById(R.id.deal_tab_listview);
             // Pass the results into an ArrayAdapter
-            adapter = new ArrayAdapter<String>(getActivity(),
-                    R.layout.listview_item);
+            dealAdapter = new ArrayAdapter<String>(getActivity(), R.layout.listview_item);
             // Retrieve object "name" from Parse.com database
             for (ParseObject deal : ob) {
-                adapter.add((String) deal.get("title"));
+            	dealAdapter.add((String) deal.get("title"));
             }
             // Binds the Adapter to the ListView
-            listview.setAdapter(adapter);
+            listview.setAdapter(dealAdapter);
             // Close the progressdialog
             //mProgressDialog.dismiss();
             // Capture button clicks on ListView items
