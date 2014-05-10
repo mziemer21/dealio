@@ -33,7 +33,7 @@ public class ReviewsTabFragment extends Fragment {
 
 	private Button addButton;
 	Bundle extras;
-	ListView listview;
+	ListView reviewListview;
     List<ParseObject> ob;
     ProgressDialog mProgressDialog;
     ArrayAdapter<String> reviewAdapter;
@@ -107,7 +107,7 @@ public class ReviewsTabFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             // Locate the listview in listview_main.xml
-            listview = (ListView) getView().findViewById(R.id.review_tab_listview);
+            reviewListview = (ListView) getView().findViewById(R.id.review_tab_listview);
             // Pass the results into an ArrayAdapter
             reviewAdapter = new ArrayAdapter<String>(getActivity(),
                     R.layout.listview_item);
@@ -116,11 +116,11 @@ public class ReviewsTabFragment extends Fragment {
             	reviewAdapter.add((String) review.get("title"));
             }
             // Binds the Adapter to the ListView
-            listview.setAdapter(reviewAdapter);
+            reviewListview.setAdapter(reviewAdapter);
             // Close the progressdialog
             //mProgressDialog.dismiss();
             // Capture button clicks on ListView items
-            listview.setOnItemClickListener(new OnItemClickListener() {
+            reviewListview.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
                         int position, long id) {
