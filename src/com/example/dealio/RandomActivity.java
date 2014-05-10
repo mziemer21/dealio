@@ -30,8 +30,6 @@ public class RandomActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Get the view from listview_main.xml
-        setContentView(R.layout.activity_deal_details);
         // Execute RemoteDataTask AsyncTask
         new RemoteDataTask().execute();
     }
@@ -85,6 +83,7 @@ public class RandomActivity extends Activity {
                 i.putExtra("deal_title", ob.get(position).getString("title").toString());
                 // Open SingleItemView.java Activity
                 startActivity(i);
+                RandomActivity.this.finish();
         }
     }
 }
