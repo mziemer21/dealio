@@ -183,7 +183,7 @@
             android:layout_below="@+id/deal_type_switch"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            android:text="@+id/submit" />
+            android:text="@string/submit" />
         <!-- End Submit button -->
 
     </RelativeLayout>

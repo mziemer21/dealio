@@ -4,8 +4,11 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,6 +28,7 @@ public class DealAddActivity extends Activity {
 
 	private Button submitButton;
 	Intent intent;
+	ProgressDialog mProgressDialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,73 +45,97 @@ public class DealAddActivity extends Activity {
 			@Override
 			public void onClick(View arg0)
 			{
-				EditText mEdit;
-				Spinner spinner;
-				TimePicker tpResult;
-				ParseObject establishment = null, deal_type = null;
-				Calendar myCal = makeCalender();
-				Date myDate;
-				ParseGeoPoint location = null;
 				
-				ParseObject deal = new ParseObject("Deal");
-				mEdit   = (EditText)findViewById(R.id.edit_deal_title);
-				deal.put("title", mEdit.getText().toString());
-				mEdit   = (EditText)findViewById(R.id.edit_deal_details);
-				deal.put("details", mEdit.getText().toString());
-				mEdit   = (EditText)findViewById(R.id.edit_deal_restrictions);
-				deal.put("restrictions", mEdit.getText().toString());
-				tpResult = (TimePicker)findViewById(R.id.edit_deal_timePicker_start);
-				myCal.set(Calendar.HOUR_OF_DAY, tpResult.getCurrentHour());
-				myCal.set(Calendar.MINUTE, tpResult.getCurrentMinute());
-				myDate = myCal.getTime();
-				deal.put("time_start", myDate);
-				tpResult = (TimePicker)findViewById(R.id.edit_deal_timePicker_stop);
-				myCal = makeCalender();
-				myCal.set(Calendar.HOUR_OF_DAY, tpResult.getCurrentHour());
-				myCal.set(Calendar.MINUTE, tpResult.getCurrentMinute());
-				myDate = myCal.getTime();
-				deal.put("time_end", myDate);
-				deal.put("up_votes", 0);
-				deal.put("down_votes", 0);
-				//dpResult = (DatePicker)findViewById(R.id.edit_deal_timePicker_start);
-				deal.put("date_start", myDate);
-				//dpResult = (DatePicker)findViewById(R.id.edit_deal_timePicker_stop);
-				deal.put("date_end", myDate);
-				spinner   = (Spinner)findViewById(R.id.deal_day_spinner);
-				deal.put("day", spinner.getSelectedItem().toString());
-				
-				ParseQuery<ParseObject> queryEstablishment = ParseQuery.getQuery("Establishment");
-				queryEstablishment.whereEqualTo("objectId", intent.getStringExtra("establishment_id"));
-				try {
-					establishment = queryEstablishment.getFirst();
-					Log.d("establishment", establishment.toString());
-					location = establishment.getParseGeoPoint("location");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				ParseQuery<ParseObject> queryDealType = ParseQuery.getQuery("deal_type");
-				queryDealType.whereEqualTo("objectId", "YGWgOQjMKQ");
-				try {
-					deal_type = queryDealType.getFirst();
-					Log.d("deal_type", deal_type.toString());
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				deal.put("establishment", establishment);
-				//spinner = (Spinner)findViewById(R.id.deal_type_switch);
-				deal.put("deal_type", deal_type);
-				deal.put("user", ParseUser.getCurrentUser());
-				deal.put("location", location);
-				try {
-					deal.save();
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				// Create a progressdialog
+	            mProgressDialog = new ProgressDialog(DealAddActivity.this);
+	            // Set progressdialog message
+	            mProgressDialog.setMessage("Saving...");
+	            mProgressDialog.setIndeterminate(false);
+	            // Show progressdialog
+	            mProgressDialog.show();
+	            
+	            new AsyncTask<Void, Void, Void>()
+	            {
+	            	@Override
+	            	protected Void doInBackground(Void... params)
+	            	{
+						EditText mEdit;
+						Spinner spinner;
+						TimePicker tpResult;
+						ParseObject establishment = null, deal_type = null;
+						Calendar myCal = makeCalender();
+						Date myDate;
+						ParseGeoPoint location = null;
+						
+						ParseObject deal = new ParseObject("Deal");
+						mEdit   = (EditText)findViewById(R.id.edit_deal_title);
+						deal.put("title", mEdit.getText().toString());
+						mEdit   = (EditText)findViewById(R.id.edit_deal_details);
+						deal.put("details", mEdit.getText().toString());
+						mEdit   = (EditText)findViewById(R.id.edit_deal_restrictions);
+						deal.put("restrictions", mEdit.getText().toString());
+						tpResult = (TimePicker)findViewById(R.id.edit_deal_timePicker_start);
+						myCal.set(Calendar.HOUR_OF_DAY, tpResult.getCurrentHour());
+						myCal.set(Calendar.MINUTE, tpResult.getCurrentMinute());
+						myDate = myCal.getTime();
+						deal.put("time_start", myDate);
+						tpResult = (TimePicker)findViewById(R.id.edit_deal_timePicker_stop);
+						myCal = makeCalender();
+						myCal.set(Calendar.HOUR_OF_DAY, tpResult.getCurrentHour());
+						myCal.set(Calendar.MINUTE, tpResult.getCurrentMinute());
+						myDate = myCal.getTime();
+						deal.put("time_end", myDate);
+						deal.put("up_votes", 0);
+						deal.put("down_votes", 0);
+						//dpResult = (DatePicker)findViewById(R.id.edit_deal_timePicker_start);
+						deal.put("date_start", myDate);
+						//dpResult = (DatePicker)findViewById(R.id.edit_deal_timePicker_stop);
+						deal.put("date_end", myDate);
+						spinner   = (Spinner)findViewById(R.id.deal_day_spinner);
+						deal.put("day", spinner.getSelectedItem().toString());
+						
+						ParseQuery<ParseObject> queryEstablishment = ParseQuery.getQuery("Establishment");
+						queryEstablishment.whereEqualTo("objectId", intent.getStringExtra("establishment_id"));
+						try {
+							establishment = queryEstablishment.getFirst();
+							Log.d("establishment", establishment.toString());
+							location = establishment.getParseGeoPoint("location");
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						ParseQuery<ParseObject> queryDealType = ParseQuery.getQuery("deal_type");
+						queryDealType.whereEqualTo("objectId", "YGWgOQjMKQ");
+						try {
+							deal_type = queryDealType.getFirst();
+							Log.d("deal_type", deal_type.toString());
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					
+						deal.put("establishment", establishment);
+						//spinner = (Spinner)findViewById(R.id.deal_type_switch);
+						deal.put("deal_type", deal_type);
+						deal.put("user", ParseUser.getCurrentUser());
+						deal.put("location", location);
+						try {
+							deal.save();
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						return null;
+	            	}
+					
+	            	@Override
+		            protected void onPostExecute(Void result)
+		            {
+						mProgressDialog.dismiss();
+						DealAddActivity.this.finish();
+		            }
+	            }.execute(); 
 			}
 		});
 	}

@@ -1,7 +1,9 @@
 package com.example.dealio.tabs;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +22,7 @@ public class ReviewAddActivity extends Activity {
 
 	private Button submitButton;
 	Intent intent;
+	ProgressDialog mProgressDialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,37 +39,60 @@ public class ReviewAddActivity extends Activity {
 			@Override
 			public void onClick(View arg0)
 			{
-				EditText mEdit;
-				ParseObject establishment = null;
+				// Create a progressdialog
+	            mProgressDialog = new ProgressDialog(ReviewAddActivity.this);
+	            // Set progressdialog message
+	            mProgressDialog.setMessage("Saving...");
+	            mProgressDialog.setIndeterminate(false);
+	            // Show progressdialog
+	            mProgressDialog.show();
 				
-				ParseObject deal = new ParseObject("Review");
-				mEdit = (EditText)findViewById(R.id.review_title_input);
-				deal.put("title", mEdit.getText().toString());
-				mEdit = (EditText)findViewById(R.id.review_details_input);
-				deal.put("details", mEdit.getText().toString());
-				RatingBar rBar = (RatingBar) findViewById(R.id.review_rating_input);
-				deal.put("rating", rBar.getRating());
-				deal.put("helpful", 0);
-				
-				ParseQuery<ParseObject> queryEstablishment = ParseQuery.getQuery("Establishment");
-				queryEstablishment.whereEqualTo("objectId", intent.getStringExtra("establishment_id"));
-				try {
-					establishment = queryEstablishment.getFirst();
-					Log.d("establishment", establishment.toString());
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				deal.put("establishment", establishment);
-				//spinner = (Spinner)findViewById(R.id.deal_type_switch);
-				deal.put("user", ParseUser.getCurrentUser());
-				try {
-					deal.save();
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+	            new AsyncTask<Void, Void, Void>()
+	            {
+	            	@Override
+	            	protected Void doInBackground(Void... params)
+	            	{
+						EditText mEdit;
+						ParseObject establishment = null;
+						
+						ParseObject review = new ParseObject("Review");
+						mEdit = (EditText)findViewById(R.id.review_title_input);
+						review.put("title", mEdit.getText().toString());
+						mEdit = (EditText)findViewById(R.id.review_details_input);
+						review.put("details", mEdit.getText().toString());
+						RatingBar rBar = (RatingBar) findViewById(R.id.review_rating_input);
+						review.put("rating", rBar.getRating());
+						review.put("helpful", 0);
+						
+						ParseQuery<ParseObject> queryEstablishment = ParseQuery.getQuery("Establishment");
+						queryEstablishment.whereEqualTo("objectId", intent.getStringExtra("establishment_id"));
+						try {
+							establishment = queryEstablishment.getFirst();
+							Log.d("establishment", establishment.toString());
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						review.put("establishment", establishment);
+						//spinner = (Spinner)findViewById(R.id.deal_type_switch);
+						review.put("user", ParseUser.getCurrentUser());
+						try {
+							review.save();
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						return null;
+	            	}
+	            	
+	            	@Override
+		            protected void onPostExecute(Void result)
+		            {
+						mProgressDialog.dismiss();
+						ReviewAddActivity.this.finish();
+		            }
+	            }.execute();
 			}
 		});
 	}	
