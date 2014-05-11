@@ -6,7 +6,7 @@
 
     <Button
         android:id="@+id/buttonDeals"
-        android:layout_width="110dp"
+        android:layout_width="120dp"
         android:layout_height="110dp"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/buttonRandom"
@@ -24,7 +24,7 @@
 
     <Button
         android:id="@+id/buttonRandom"
-        android:layout_width="110dp"
+        android:layout_width="120dp"
         android:layout_height="110dp"
         android:layout_alignLeft="@+id/buttonDeals"
         android:layout_alignParentTop="true"
@@ -41,7 +41,7 @@
 
     <Button
         android:id="@+id/buttonList"
-        android:layout_width="110dp"
+        android:layout_width="120dp"
         android:layout_height="110dp"
         android:layout_alignTop="@+id/buttonRandom"
         android:layout_marginRight="28dp"
@@ -58,7 +58,7 @@
 
     <Button
         android:id="@+id/buttonMap"
-        android:layout_width="110dp"
+        android:layout_width="120dp"
         android:layout_height="110dp"
         android:layout_alignBaseline="@+id/buttonDeals"
         android:layout_alignBottom="@+id/buttonDeals"
