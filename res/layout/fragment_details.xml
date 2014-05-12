@@ -19,10 +19,27 @@
         android:textSize="25sp" />
     
     <TextView
+        android:id="@+id/descriptionlabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:text="@string/description"
+        android:textSize="25sp" />
+    
+    <TextView
         android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"
+        android:layout_toRightOf="@+id/descriptionlabel"
+        android:textSize="25sp" />
+    
+    <TextView
+        android:id="@+id/ratinglabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/description"
+        android:text="@string/rating"
         android:textSize="25sp" />
     
     <TextView
@@ -30,6 +47,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/description"
+        android:layout_toRightOf="@+id/ratinglabel"
+        android:textSize="25sp" />
+    
+    <TextView
+        android:id="@+id/pricelabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rating"
+        android:text="@string/price"
         android:textSize="25sp" />
     
     <TextView
@@ -37,6 +63,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rating"
+        android:layout_toRightOf="@+id/pricelabel"
+        android:textSize="25sp" />
+    
+    <TextView
+        android:id="@+id/addresslabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/price"
+        android:text="@string/address"
         android:textSize="25sp" />
     
     <TextView
@@ -44,6 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/price"
+        android:layout_toRightOf="@+id/addresslabel"
         android:textSize="25sp" />
     
     
