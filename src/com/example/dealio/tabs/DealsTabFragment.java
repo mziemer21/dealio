@@ -31,11 +31,11 @@ import com.parse.ParseQuery;
  */
 public class DealsTabFragment extends Fragment {
 
-	private Button addButton;
-	Bundle extras;
+	private Button addDealButton;
+	Bundle extrasDeal;
 	// Declare Variables
     ListView dealListview;
-    List<ParseObject> ob;
+    List<ParseObject> obDeal;
     ProgressDialog mProgressDialog;
     ArrayAdapter<String> dealAdapter;
 	
@@ -43,27 +43,27 @@ public class DealsTabFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		extras = getArguments();
+		extrasDeal = getArguments();
 		
-		View rootView = inflater.inflate(R.layout.fragment_details_deals, container, false);
+		View rootDealView = inflater.inflate(R.layout.fragment_details_deals, container, false);
 		
-		addButton = (Button) rootView.findViewById(R.id.add_deal);
+		addDealButton = (Button) rootDealView.findViewById(R.id.add_deal);
 		 
-		addButton.setOnClickListener(new OnClickListener() {
+		addDealButton.setOnClickListener(new OnClickListener() {
  
 			  @Override
 			  public void onClick(View arg0) {
  
 				  Intent dealAddFragment = new Intent(getActivity(), DealAddActivity.class);
 				// Pass data "name" followed by the position
-              	dealAddFragment.putExtra("establishment_id", extras.getString("establishment_id").toString());
-                dealAddFragment.putExtra("name", extras.getString("name")
+              	dealAddFragment.putExtra("establishment_id", extrasDeal.getString("establishment_id").toString());
+                dealAddFragment.putExtra("name", extrasDeal.getString("name")
                           .toString());
-                dealAddFragment.putExtra("description", extras.getString("description")
+                dealAddFragment.putExtra("description", extrasDeal.getString("description")
                           .toString());
-                dealAddFragment.putExtra("price", extras.getInt("price"));
-                dealAddFragment.putExtra("rating", extras.getInt("rating"));
-                dealAddFragment.putExtra("address", extras.getString("address")
+                dealAddFragment.putExtra("price", extrasDeal.getInt("price"));
+                dealAddFragment.putExtra("rating", extrasDeal.getInt("rating"));
+                dealAddFragment.putExtra("address", extrasDeal.getString("address")
                           .toString());
 				  startActivity(dealAddFragment);
  
@@ -71,7 +71,7 @@ public class DealsTabFragment extends Fragment {
 		});
 		
 		new RemoteDataTaskDeal().execute();
-		return rootView;
+		return rootDealView;
 	}
 	
 	// RemoteDataTask AsyncTask
@@ -92,7 +92,7 @@ public class DealsTabFragment extends Fragment {
         protected Void doInBackground(Void... params) {
         	ParseObject est = null;
         	ParseQuery<ParseObject> queryEstablishment = ParseQuery.getQuery("Establishment");
-			queryEstablishment.whereEqualTo("objectId", extras.getString("establishment_id"));
+			queryEstablishment.whereEqualTo("objectId", extrasDeal.getString("establishment_id"));
 			try {
 				est = queryEstablishment.getFirst();
 			} catch (ParseException e1) {
@@ -100,11 +100,11 @@ public class DealsTabFragment extends Fragment {
 				e1.printStackTrace();
 			}
             // Locate the class table named "establishment" in Parse.com
-            ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+            ParseQuery<ParseObject> queryDeal = new ParseQuery<ParseObject>(
                     "Deal").whereEqualTo("establishment", est);
-            query.orderByDescending("_created_at");
+            queryDeal.orderByDescending("_created_at");
             try {
-                ob = query.find();
+                obDeal = queryDeal.find();
             } catch (Exception e) {
                 Log.e("Error", e.getMessage());
                 e.printStackTrace();
@@ -117,9 +117,9 @@ public class DealsTabFragment extends Fragment {
             // Locate the listview in listview_main.xml
             dealListview = (ListView) getView().findViewById(R.id.deal_tab_listview);
             // Pass the results into an ArrayAdapter
-            dealAdapter = new ArrayAdapter<String>(getActivity(), R.layout.listview_item);
+            dealAdapter = new ArrayAdapter<String>(getActivity(), R.layout.listview_item_deal);
             // Retrieve object "name" from Parse.com database
-            for (ParseObject deal : ob) {
+            for (ParseObject deal : obDeal) {
             	dealAdapter.add((String) deal.get("title"));
             }
             // Binds the Adapter to the ListView
@@ -132,14 +132,14 @@ public class DealsTabFragment extends Fragment {
                 public void onItemClick(AdapterView<?> parent, View view,
                         int position, long id) {
                     // Send single item click data to SingleItemView Class
-                 Intent i = new Intent(getActivity(),
+                 Intent iDeal = new Intent(getActivity(),
                 		DealsDetailsActivity.class);
                     // Pass data "name" followed by the position
-                	i.putExtra("deal_id", ob.get(position).getObjectId().toString());
-                    i.putExtra("deal_details", ob.get(position).getString("details").toString());
-                    i.putExtra("deal_title", ob.get(position).getString("title").toString());
+                	iDeal.putExtra("deal_id", obDeal.get(position).getObjectId().toString());
+                    iDeal.putExtra("deal_details", obDeal.get(position).getString("details").toString());
+                    iDeal.putExtra("deal_title", obDeal.get(position).getString("title").toString());
                     // Open SingleItemView.java Activity
-                    startActivity(i);
+                    startActivity(iDeal);
                 }
             });
         }

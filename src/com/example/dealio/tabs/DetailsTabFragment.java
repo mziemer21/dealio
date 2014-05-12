@@ -26,22 +26,22 @@ public class DetailsTabFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		View rootView = inflater.inflate(R.layout.fragment_details, container, false);
+		View rootDetailsView = inflater.inflate(R.layout.fragment_details, container, false);
 		
 		/* get arguments from activity */
-		Bundle bundle = getArguments(); 
-		name = bundle.getString("name");
-		description = bundle.getString("description");
-		rating = bundle.getInt("rating");
-		price = bundle.getInt("price");
-		address = bundle.getString("address");
+		Bundle extraDetails = getArguments(); 
+		name = extraDetails.getString("name");
+		description = extraDetails.getString("description");
+		rating = extraDetails.getInt("rating");
+		price = extraDetails.getInt("price");
+		address = extraDetails.getString("address");
 		
 		// Locate the TextView in xml
-        txtName = (TextView) rootView.findViewById(R.id.name);
-        txtDescription = (TextView) rootView.findViewById(R.id.description);
-        txtPrice = (TextView) rootView.findViewById(R.id.price);
-        txtRating = (TextView) rootView.findViewById(R.id.rating);
-        txtAddress = (TextView) rootView.findViewById(R.id.address);
+        txtName = (TextView) rootDetailsView.findViewById(R.id.name);
+        txtDescription = (TextView) rootDetailsView.findViewById(R.id.description);
+        txtPrice = (TextView) rootDetailsView.findViewById(R.id.price);
+        txtRating = (TextView) rootDetailsView.findViewById(R.id.rating);
+        txtAddress = (TextView) rootDetailsView.findViewById(R.id.address);
  
         // Load the text into the TextView
         txtName.setText(name);
@@ -50,6 +50,6 @@ public class DetailsTabFragment extends Fragment {
         txtRating.setText(Integer.toString(rating));
         txtAddress.setText(address);
 		
-		return rootView;
+		return rootDetailsView;
 	}
 }

@@ -31,10 +31,10 @@ import com.parse.ParseQuery;
  */
 public class ReviewsTabFragment extends Fragment {
 
-	private Button addButton;
-	Bundle extras;
+	private Button addReviewButton;
+	Bundle extrasReview;
 	ListView reviewListview;
-    List<ParseObject> ob;
+    List<ParseObject> obReview;
     ProgressDialog mProgressDialog;
     ArrayAdapter<String> reviewAdapter;
 	
@@ -42,27 +42,27 @@ public class ReviewsTabFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		extras = getArguments();
+		extrasReview = getArguments();
 		
-		View rootView = inflater.inflate(R.layout.fragment_details_reviews, container, false);
+		View rootReviewView = inflater.inflate(R.layout.fragment_details_reviews, container, false);
 		 
-		addButton = (Button) rootView.findViewById(R.id.add_review);
+		addReviewButton = (Button) rootReviewView.findViewById(R.id.add_review);
 		 
-		addButton.setOnClickListener(new OnClickListener() {
+		addReviewButton.setOnClickListener(new OnClickListener() {
  
 			  @Override
 			  public void onClick(View arg0) {
  
 				  Intent dealAddFragment = new Intent(getActivity(), ReviewAddActivity.class);
 				// Pass data "name" followed by the position
-              	dealAddFragment.putExtra("establishment_id", extras.getString("establishment_id").toString());
-                dealAddFragment.putExtra("name", extras.getString("name")
+              	dealAddFragment.putExtra("establishment_id", extrasReview.getString("establishment_id").toString());
+                dealAddFragment.putExtra("name", extrasReview.getString("name")
                           .toString());
-                dealAddFragment.putExtra("description", extras.getString("description")
+                dealAddFragment.putExtra("description", extrasReview.getString("description")
                           .toString());
-                dealAddFragment.putExtra("price", extras.getInt("price"));
-                dealAddFragment.putExtra("rating", extras.getInt("rating"));
-                dealAddFragment.putExtra("address", extras.getString("address")
+                dealAddFragment.putExtra("price", extrasReview.getInt("price"));
+                dealAddFragment.putExtra("rating", extrasReview.getInt("rating"));
+                dealAddFragment.putExtra("address", extrasReview.getString("address")
                           .toString());
 				  startActivity(dealAddFragment);
  
@@ -70,7 +70,7 @@ public class ReviewsTabFragment extends Fragment {
 		});
 		
 		new RemoteDataTaskReview().execute();
-		return rootView;
+		return rootReviewView;
 	}
 	
 	// RemoteDataTask AsyncTask
@@ -83,20 +83,20 @@ public class ReviewsTabFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... params) {
         	ParseObject est = null;
-        	ParseQuery<ParseObject> queryEstablishment = ParseQuery.getQuery("Establishment");
-			queryEstablishment.whereEqualTo("objectId", extras.getString("establishment_id"));
+        	ParseQuery<ParseObject> queryEstablishmentReview = ParseQuery.getQuery("Establishment");
+			queryEstablishmentReview.whereEqualTo("objectId", extrasReview.getString("establishment_id"));
 			try {
-				est = queryEstablishment.getFirst();
+				est = queryEstablishmentReview.getFirst();
 			} catch (ParseException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
             // Locate the class table named "establishment" in Parse.com
-            ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+            ParseQuery<ParseObject> queryReview = new ParseQuery<ParseObject>(
                     "Review").whereEqualTo("establishment", est);
-            query.orderByDescending("_created_at");
+            queryReview.orderByDescending("_created_at");
             try {
-                ob = query.find();
+                obReview = queryReview.find();
             } catch (Exception e) {
                 Log.e("Error", e.getMessage());
                 e.printStackTrace();
@@ -110,9 +110,9 @@ public class ReviewsTabFragment extends Fragment {
             reviewListview = (ListView) getView().findViewById(R.id.review_tab_listview);
             // Pass the results into an ArrayAdapter
             reviewAdapter = new ArrayAdapter<String>(getActivity(),
-                    R.layout.listview_item);
+                    R.layout.listview_item_review);
             // Retrieve object "name" from Parse.com database
-            for (ParseObject review : ob) {
+            for (ParseObject review : obReview) {
             	reviewAdapter.add((String) review.get("title"));
             }
             // Binds the Adapter to the ListView
@@ -125,14 +125,14 @@ public class ReviewsTabFragment extends Fragment {
                 public void onItemClick(AdapterView<?> parent, View view,
                         int position, long id) {
                     // Send single item click data to SingleItemView Class
-                 Intent i = new Intent(getActivity(),
+                 Intent iReview = new Intent(getActivity(),
                 		ReviewsDetailsActivity.class);
                     // Pass data "name" followed by the position
-                	i.putExtra("review_id", ob.get(position).getObjectId().toString());
-                    i.putExtra("review_details", ob.get(position).getString("details").toString());
-                    i.putExtra("review_title", ob.get(position).getString("title").toString());
+                	iReview.putExtra("review_id", obReview.get(position).getObjectId().toString());
+                    iReview.putExtra("review_details", obReview.get(position).getString("details").toString());
+                    iReview.putExtra("review_title", obReview.get(position).getString("title").toString());
                     // Open SingleItemView.java Activity
-                    startActivity(i);
+                    startActivity(iReview);
                 }
             });
         }

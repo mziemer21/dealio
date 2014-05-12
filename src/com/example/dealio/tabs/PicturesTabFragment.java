@@ -22,10 +22,6 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-
-
-
-
 /***
  * Tab used by details fragment
  * It contains a grid of pictures
@@ -35,38 +31,38 @@ import com.parse.ParseQuery;
 public class PicturesTabFragment extends Fragment {
 
 	// Declare Variables
-    GridView gridview;
-    List<ParseObject> ob;
+    GridView gridviewPictures;
+    List<ParseObject> obPictures;
     ProgressDialog mProgressDialog;
     GridViewAdapter pictureAdapter;
     private List<ImageList> picarraylist = null;
-	Button addButton;
-	Bundle extras;
+	Button addPicturesButton;
+	Bundle extrasPictures;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		extras = getArguments();
+		extrasPictures = getArguments();
 		
-		View rootView = inflater.inflate(R.layout.fragment_details_pictures, container, false);
+		View rootPicturesView = inflater.inflate(R.layout.fragment_details_pictures, container, false);
 
-		addButton = (Button) rootView.findViewById(R.id.add_picture);
+		addPicturesButton = (Button) rootPicturesView.findViewById(R.id.add_picture);
 		
-		addButton.setOnClickListener(new OnClickListener() {
+		addPicturesButton.setOnClickListener(new OnClickListener() {
 			 
 			  @Override
 			  public void onClick(View arg0) {
 
 				  Intent pictureAddActivity = new Intent(getActivity(), PictureAddActivity.class);
-				  pictureAddActivity.putExtra("establishment_id", extras.getString("establishment_id").toString());
+				  pictureAddActivity.putExtra("establishment_id", extrasPictures.getString("establishment_id").toString());
 				  
 				  startActivity(pictureAddActivity);
 
 			  }
 		});
 		new RemoteDataTaskPicture().execute();
-		return rootView;
+		return rootPicturesView;
 	}
 	
 	// RemoteDataTask AsyncTask
@@ -87,7 +83,7 @@ public class PicturesTabFragment extends Fragment {
         protected Void doInBackground(Void... params) {
         	ParseObject est = null;
         	ParseQuery<ParseObject> queryEstablishment = ParseQuery.getQuery("Establishment");
-			queryEstablishment.whereEqualTo("objectId", extras.getString("establishment_id"));
+			queryEstablishment.whereEqualTo("objectId", extrasPictures.getString("establishment_id"));
 			try {
 				est = queryEstablishment.getFirst();
 			} catch (ParseException e1) {
@@ -97,13 +93,13 @@ public class PicturesTabFragment extends Fragment {
             // Create the array
             picarraylist = new ArrayList<ImageList>();
             try {
-                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+                ParseQuery<ParseObject> queryPictures = new ParseQuery<ParseObject>(
                         "Image").whereEqualTo("establishment", est);
                 // Locate the column named "position" in Parse.com and order list
                 // by ascending
-                query.orderByAscending("position");
-                ob = query.find();
-                for (ParseObject pic : ob) {
+                queryPictures.orderByAscending("position");
+                obPictures = queryPictures.find();
+                for (ParseObject pic : obPictures) {
                     ParseFile image = (ParseFile) pic.get("image");
                     ImageList map = new ImageList();
                     map.setPicture(image.getUrl());
@@ -119,11 +115,11 @@ public class PicturesTabFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             // Locate the gridview in gridview_main.xml
-            gridview = (GridView) getActivity().findViewById(R.id.picture_grid_view);
+            gridviewPictures = (GridView) getActivity().findViewById(R.id.picture_grid_view);
             // Pass the results into ListViewAdapter.java
             pictureAdapter = new GridViewAdapter(getActivity(), picarraylist);
             // Binds the Adapter to the ListView
-            gridview.setAdapter(pictureAdapter);
+            gridviewPictures.setAdapter(pictureAdapter);
             // Close the progressdialog
             mProgressDialog.dismiss();
         }

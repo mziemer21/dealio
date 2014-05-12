@@ -68,7 +68,7 @@ public class ListActivity extends Activity {
             listview = (ListView) findViewById(R.id.listview);
             // Pass the results into an ArrayAdapter
             adapter = new ArrayAdapter<String>(ListActivity.this,
-                    R.layout.listview_item);
+                    R.layout.listview_item_list);
             // Retrieve object "name" from Parse.com database
             for (ParseObject establishment : ob) {
                 adapter.add((String) establishment.get("name"));
