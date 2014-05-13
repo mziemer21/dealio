@@ -44,11 +44,11 @@ public class DetailsTabFragment extends Fragment {
         txtAddress = (TextView) rootDetailsView.findViewById(R.id.address);
  
         // Load the text into the TextView
-        txtName.setText(name);
-        txtDescription.setText(description);
-        txtPrice.setText(Integer.toString(price));
-        txtRating.setText(Integer.toString(rating));
-        txtAddress.setText(address);
+        txtName.setText(" " + name);
+        txtDescription.setText(" " + description);
+        txtPrice.setText(" " + Integer.toString(price));
+        txtRating.setText(" " + Integer.toString(rating));
+        txtAddress.setText(" " + address);
 		
 		return rootDetailsView;
 	}
