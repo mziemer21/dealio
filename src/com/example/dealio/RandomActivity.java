@@ -9,14 +9,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.example.dealio.tabs.DealsDetailsActivity;
-import com.example.dealio.tabs.DetailsActivity;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
