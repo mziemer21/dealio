@@ -37,7 +37,7 @@ import com.example.dealio.tabs.DetailsActivity;
  * @author zieme_000
  *
  */
-public class NavDrawerActivity extends FragmentActivity {
+public class NavDrawerHome extends FragmentActivity {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -254,22 +254,22 @@ public class NavDrawerActivity extends FragmentActivity {
 		switch(v.getId())
 		{
 		case R.id.buttonList:
-			Intent ListActivity = new Intent(NavDrawerActivity.this, ListActivity.class);
+			Intent ListActivity = new Intent(NavDrawerHome.this, ListActivity.class);
 	        startActivity(ListActivity);
 			break;
 			
 		case R.id.buttonDeals:
-			Intent DealActivity = new Intent(NavDrawerActivity.this, DealActivity.class);
+			Intent DealActivity = new Intent(NavDrawerHome.this, DealActivity.class);
 			startActivity(DealActivity);
 			break;
 			
 		case R.id.buttonMap:
-			Intent MapActivity = new Intent(NavDrawerActivity.this, MapActivity.class);
+			Intent MapActivity = new Intent(NavDrawerHome.this, MapActivity.class);
 			startActivity(MapActivity);
 			break;
 		
 		case R.id.buttonRandom:
-			Intent RandomActivity = new Intent(NavDrawerActivity.this, RandomActivity.class);
+			Intent RandomActivity = new Intent(NavDrawerHome.this, RandomActivity.class);
 			startActivity(RandomActivity);
 			break;
 			

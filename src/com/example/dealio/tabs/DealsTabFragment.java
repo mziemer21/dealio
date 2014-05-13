@@ -135,6 +135,7 @@ public class DealsTabFragment extends Fragment {
                  Intent iDeal = new Intent(getActivity(),
                 		DealsDetailsActivity.class);
                     // Pass data "name" followed by the position
+                 	iDeal.putExtra("establishment_id", extrasDeal.getString("establishment_id").toString());
                 	iDeal.putExtra("deal_id", obDeal.get(position).getObjectId().toString());
                     iDeal.putExtra("deal_details", obDeal.get(position).getString("details").toString());
                     iDeal.putExtra("deal_title", obDeal.get(position).getString("title").toString());

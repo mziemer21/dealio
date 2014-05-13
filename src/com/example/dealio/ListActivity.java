@@ -1,11 +1,11 @@
 package com.example.dealio;
 import java.util.List;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,7 +17,7 @@ import com.example.dealio.tabs.DetailsActivity;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
  
-public class ListActivity extends Activity {
+public class ListActivity extends FragmentActivity {
     // Declare Variables
     ListView listview;
     List<ParseObject> ob;

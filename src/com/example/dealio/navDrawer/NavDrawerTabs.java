@@ -23,11 +23,15 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.dealio.ChangeLocationFragment;
+import com.example.dealio.DealActivity;
 import com.example.dealio.FeedbackFragment;
 import com.example.dealio.HomeFragment;
+import com.example.dealio.ListActivity;
 import com.example.dealio.LogoutActivity;
+import com.example.dealio.MapActivity;
 import com.example.dealio.NotificationsFragment;
 import com.example.dealio.R;
+import com.example.dealio.RandomActivity;
 import com.example.dealio.tabs.DetailsActivity;
 
 public class NavDrawerTabs extends FragmentActivity {
@@ -261,6 +265,37 @@ public class NavDrawerTabs extends FragmentActivity {
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	/*** For home fragment buttons ***/
+	public void onButtonClick(View v)
+	{
+		
+		switch(v.getId())
+		{
+		case R.id.buttonList:
+			Intent ListActivity = new Intent(NavDrawerTabs.this, ListActivity.class);
+	        startActivity(ListActivity);
+			break;
+			
+		case R.id.buttonDeals:
+			Intent DealActivity = new Intent(NavDrawerTabs.this, DealActivity.class);
+			startActivity(DealActivity);
+			break;
+			
+		case R.id.buttonMap:
+			Intent MapActivity = new Intent(NavDrawerTabs.this, MapActivity.class);
+			startActivity(MapActivity);
+			break;
+		
+		case R.id.buttonRandom:
+			Intent RandomActivity = new Intent(NavDrawerTabs.this, RandomActivity.class);
+			startActivity(RandomActivity);
+			break;
+			
+			default:
+			
+		}
 	}
 
 }

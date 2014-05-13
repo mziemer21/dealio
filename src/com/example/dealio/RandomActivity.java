@@ -9,14 +9,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.example.dealio.tabs.DealsDetailsActivity;
-import com.example.dealio.tabs.DetailsActivity;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -77,10 +72,13 @@ public class RandomActivity extends Activity {
         	position = random.nextInt(obCount+1);
         	Intent i = new Intent(RandomActivity.this,
             		DealsDetailsActivity.class);
+        		ParseObject establishment = (ParseObject) ob.get(position).get("establishment");
                 // Pass data "name" followed by the position
             	i.putExtra("deal_id", ob.get(position).getObjectId().toString());
                 i.putExtra("deal_details", ob.get(position).getString("details").toString());
                 i.putExtra("deal_title", ob.get(position).getString("title").toString());
+                i.putExtra("establishment_id", establishment.getObjectId());
+                //i.putExtra("establishment_id", ob.get(position).getString("establishment").toString());
                 // Open SingleItemView.java Activity
                 startActivity(i);
                 RandomActivity.this.finish();

@@ -1,0 +1,87 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/deal_filter_day_of_week_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="17dp"
+        android:text="@string/day_of_week"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/deal_filter_day_of_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="35dp"
+        android:layout_toRightOf="@+id/deal_filter_day_of_week_label"
+        android:entries="@array/day_of_week_dropdown"
+        android:prompt="@string/deal_type_prompt" />
+
+    <TextView
+        android:id="@+id/deal_filter_type_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/deal_filter_day_of_week_label"
+        android:layout_below="@+id/deal_filter_day_of_week"
+        android:layout_marginTop="19dp"
+        android:text="@string/deal_types"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ToggleButton
+        android:id="@+id/deal_filter_type_drinks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/deal_filter_type_food"
+        android:layout_alignBottom="@+id/deal_filter_type_food"
+        android:layout_toRightOf="@+id/deal_filter_day_of_week_label"
+        android:layout_marginTop="10dp"
+        android:textOn="@string/drinks"
+        android:textOff="@string/drinks" />
+
+    <ToggleButton
+        android:id="@+id/deal_filter_type_food"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/deal_filter_day_of_week_label"
+        android:layout_below="@+id/deal_filter_type_label"
+        android:layout_marginTop="10dp"
+        android:textOn="@string/food"
+        android:textOff="@string/food" />
+
+    <TextView
+        android:id="@+id/deal_filter_distance_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/deal_filter_type_label"
+        android:layout_below="@+id/deal_filter_type_food"
+        android:layout_marginTop="17dp"
+        android:text="@string/search_distance"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/deal_filter_distance_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/deal_filter_distance_label"
+        android:layout_centerVertical="true"
+        android:ems="10"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/deal_filter_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/deal_filter_distance_input"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="@string/search" />
+
+    "
+
+</RelativeLayout>
