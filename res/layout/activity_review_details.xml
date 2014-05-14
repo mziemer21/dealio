@@ -1,24 +1,52 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
-
+    android:layout_height="fill_parent" 
+    android:background="@drawable/gradient_background">
+    
+    <TextView
+        android:id="@+id/titlelabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pageTitle"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:text="Title: " />
     
     <TextView
         android:id="@+id/reviewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="22dp"
+		android:layout_below="@+id/pageTitle"
+        android:layout_toRightOf="@+id/titlelabel"
+        android:textSize="25sp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     
     <TextView
         android:id="@+id/reviewDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_below="@+id/reviewTitle"
-        android:layout_marginLeft="18dp"
-        android:layout_marginTop="32dp" />
-    
+        android:layout_toRightOf="@+id/reviewDetaillabel"
+        android:textSize="25sp"/>
+
+    <TextView
+        android:id="@+id/reviewDetaillabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titlelabel"
+        android:textStyle="bold"
+        android:text="Details: "
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/pageTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:text="Review"
+        android:textSize="35sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>
