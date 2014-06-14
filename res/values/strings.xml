@@ -83,7 +83,7 @@
         <item>Details</item>
         <item>Deals</item>
         <item>Reviews</item>
-        <item>Pictures</item>
+        <!-- <item>Pictures</item>  -->
     </array>
     <!-- End Tab Names -->
     
