@@ -93,21 +93,27 @@ public class DealsTabFragment extends Fragment {
 				  } else {
 					  Intent dealAddFragment = new Intent(getActivity(), DealAddActivity.class);
 					// Pass data "name" followed by the position
-	              	dealAddFragment.putExtra("establishment_id", extrasDeal.getString("establishment_id").toString());
+	              	dealAddFragment.putExtra("establishment_id", extrasDeal.getString("establishment_id"));
 	                dealAddFragment.putExtra("name", extrasDeal.getString("name")
 	                          .toString());
-	                dealAddFragment.putExtra("description", extrasDeal.getString("description")
-	                          .toString());
-	                dealAddFragment.putExtra("price", extrasDeal.getInt("price"));
-	                dealAddFragment.putExtra("rating", extrasDeal.getInt("rating"));
+	                dealAddFragment.putExtra("rating", extrasDeal.getString("rating"));
 	                dealAddFragment.putExtra("address", extrasDeal.getString("address")
 	                          .toString());
+	                dealAddFragment.putExtra("city", extrasDeal.getString("city"));
+	                dealAddFragment.putExtra("state", extrasDeal.getString("state"));
+	                dealAddFragment.putExtra("zip", extrasDeal.getString("zip"));
+	                dealAddFragment.putExtra("yelp_id", extrasDeal.getString("yelp_id"));
+	                
 					  startActivity(dealAddFragment);
 				  }
 			  }
 		});
 		
-		new RemoteDataTaskDeal().execute();
+		if(extrasDeal.getString("establishment_id").contentEquals("empty")){
+			//display some text
+		} else {
+			new RemoteDataTaskDeal().execute();
+		}
 		return rootDealView;
 	}
 	

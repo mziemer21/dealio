@@ -18,9 +18,8 @@ import com.example.dealio.R;
 public class DetailsTabFragment extends Fragment {
 
 	//Declare Variables
-	String name, description, address;
-	Integer rating, price;
-	TextView txtName, txtDescription, txtPrice, txtRating, txtAddress;
+	String name, rating, address;
+	TextView txtName, txtRating, txtAddress;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,23 +30,17 @@ public class DetailsTabFragment extends Fragment {
 		/* get arguments from activity */
 		Bundle extraDetails = getArguments(); 
 		name = extraDetails.getString("name");
-		description = extraDetails.getString("description");
-		rating = extraDetails.getInt("rating");
-		price = extraDetails.getInt("price");
+		rating = extraDetails.getString("rating");
 		address = extraDetails.getString("address");
 		
 		// Locate the TextView in xml
         txtName = (TextView) rootDetailsView.findViewById(R.id.name);
-        txtDescription = (TextView) rootDetailsView.findViewById(R.id.description);
-        txtPrice = (TextView) rootDetailsView.findViewById(R.id.price);
         txtRating = (TextView) rootDetailsView.findViewById(R.id.rating);
         txtAddress = (TextView) rootDetailsView.findViewById(R.id.address);
  
         // Load the text into the TextView
         txtName.setText(" " + name);
-        txtDescription.setText(" " + description);
-        txtPrice.setText(" " + Integer.toString(price));
-        txtRating.setText(" " + Integer.toString(rating));
+        txtRating.setText(" " + rating);
         txtAddress.setText(" " + address);
 		
 		return rootDetailsView;

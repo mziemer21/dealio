@@ -3,6 +3,11 @@ package com.example.activities;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.json.JSONException;
+import org.scribe.model.OAuthRequest;
+import org.scribe.model.Response;
+import org.scribe.model.Verb;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -17,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TimePicker;
 
+import com.example.dealio.LocationParser;
 import com.example.dealio.R;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
@@ -66,8 +72,10 @@ public class DealAddActivity extends Activity {
 						Calendar myCal = makeCalender();
 						Date myDate;
 						ParseGeoPoint location = null;
-						String switchText;
+						String switchText, result, searchString, lat = null, lng = null;
 						Spinner spinner;
+						Integer deal_count = 0;
+						LocationParser lParser;
 						
 						ParseObject deal = new ParseObject("Deal");
 						mEdit   = (EditText)findViewById(R.id.edit_deal_title);
@@ -100,11 +108,57 @@ public class DealAddActivity extends Activity {
 						queryEstablishment.whereEqualTo("objectId", intent.getStringExtra("establishment_id"));
 						try {
 							establishment = queryEstablishment.getFirst();
-							Log.d("establishment", establishment.toString());
-							location = establishment.getParseGeoPoint("location");
 						} catch (ParseException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
+						}
+						
+						if(establishment != null){
+							Log.d("establishment", establishment.toString());
+							location = establishment.getParseGeoPoint("location");
+							deal_count = establishment.getInt("deal_count") +1;
+							establishment.put("deal_count", deal_count);
+						} else {
+							searchString = intent.getStringExtra("address").replaceAll("\\s+","+") + "+" + intent.getStringExtra("city") + "+" + intent.getStringExtra("state") + "+" + intent.getStringExtra("zip");
+							OAuthRequest request = new OAuthRequest(Verb.GET, "http://maps.googleapis.com/maps/api/geocode/json?address="+searchString+"&sensor=true");
+					        Response response = request.send();
+					        result = response.getBody();
+					        
+					        lParser = new LocationParser();
+			        	    lParser.setResponse(result);
+			        	    try {
+			        	        lParser.parseLocation();
+			        	    } catch (JSONException e) {
+			        	        // TODO Auto-generated catch block
+			        	        e.printStackTrace();
+			        	        //Do whatever you want with the error, like throw a Toast error report
+			        	    }
+			        	    
+								try {
+									lat = lParser.getLat();
+									lng = lParser.getLng();
+								} catch (JSONException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+								
+			        	    
+			        	    ParseGeoPoint newLocation = new ParseGeoPoint(Double.parseDouble(lat), Double.parseDouble(lng));
+			        	    
+							Log.d("establishment", "CREATING ESTABLISHMENT");
+							ParseObject addEstablishment = new ParseObject("Establishment");
+							addEstablishment.put("name", intent.getStringExtra("name"));
+							addEstablishment.put("location", newLocation);
+							addEstablishment.put("yelp_id", intent.getStringExtra("yelp_id"));
+							addEstablishment.put("deal_count", 1);
+							try {
+								addEstablishment.save();
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							establishment = addEstablishment;
+							location = newLocation;
 						}
 						
 						switchType = (Switch)findViewById(R.id.deal_type_switch);
@@ -126,7 +180,7 @@ public class DealAddActivity extends Activity {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-					
+						
 						deal.put("establishment", establishment);
 						deal.put("deal_type", deal_type);
 						deal.put("user", ParseUser.getCurrentUser());

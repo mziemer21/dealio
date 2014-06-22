@@ -1,6 +1,7 @@
 package com.example.activities;
 
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +18,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dealio.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -40,11 +44,61 @@ public class MapActivity extends FragmentActivity implements LocationListener {
     ProgressDialog mProgressDialog;
     ArrayAdapter<String> adapter;
     Map<Marker, ParseObject> theMap = new HashMap<Marker, ParseObject>();
+    Button redoMapButton, filterMapButton;
+    Integer day;
+    String weekday;
 	
  @Override
  protected void onCreate(Bundle savedInstanceState) {
   super.onCreate(savedInstanceState);
   setContentView(R.layout.activity_map);
+  
+	redoMapButton = (Button) findViewById(R.id.redo_map_button);
+	  
+	  redoMapButton.setOnClickListener(new OnClickListener() {
+		  
+		  @Override
+		  public void onClick(View arg0) {
+			  new RemoteDataTask().execute();
+				
+			  }
+	});
+	  
+	filterMapButton = (Button) findViewById(R.id.filter_map_button);
+		  
+		  filterMapButton.setOnClickListener(new OnClickListener() {
+			  
+			  @Override
+			  public void onClick(View arg0) {
+				  Toast.makeText(getApplicationContext(), "filter", Toast.LENGTH_SHORT).show();
+					
+				  }
+		});
+		  
+		  /*Calendar calendar = Calendar.getInstance();
+		  day = calendar.get(Calendar.DAY_OF_WEEK);
+		  if(day == 1)
+		  {
+			  weekday = "Sunday";
+		  } else if(day == 2)
+		  {
+			  weekday = "Monday";
+		  } else if(day == 3)
+		  {
+			  weekday = "Tuesday";
+		  } else if(day == 4)
+		  {
+			  weekday = "Wednesday";
+		  } else if(day == 5)
+		  {
+			  weekday = "Thursday";
+		  } else if(day == 6)
+		  {
+			  weekday = "Friday";
+		  } else if(day == 7)
+		  {
+			  weekday = "Saturday";
+		  }*/
   
   // Getting reference to the SupportMapFragment of activity_main.xml
   SupportMapFragment fm = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -146,6 +200,7 @@ public class MapActivity extends FragmentActivity implements LocationListener {
          // Locate the class table named "establishment" in Parse.com
          ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
                  "Establishment");
+         //query.whereContains("day", weekday);
          query.orderByDescending("_created_at");
          try {
              ob = query.find();

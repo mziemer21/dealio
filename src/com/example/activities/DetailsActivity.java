@@ -46,7 +46,7 @@ public class DetailsActivity extends NavDrawer implements
 		mAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 		tabs = getResources().getStringArray(R.array.detailsTabs);
 		viewPager.setAdapter(mAdapter);
-		viewPager.setOffscreenPageLimit(3);
+		viewPager.setOffscreenPageLimit(2);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);		
 		
 		// Adding Tabs
@@ -112,8 +112,7 @@ public class DetailsActivity extends NavDrawer implements
     public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
 
     	//Declare Variables
-    	String establishment_id, name, description, address;
-    	Integer rating, price;
+    	String establishment_id, mobile_url, rating, name, yelp_id, address, city, state, zip, display_phone, phone, distance;
     	
         public AppSectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -126,19 +125,32 @@ public class DetailsActivity extends NavDrawer implements
         	// Get the arguments from intent
             establishment_id = intent.getStringExtra("establishment_id");
             name = intent.getStringExtra("name");
-            description = intent.getStringExtra("description");
-            rating = intent.getIntExtra("rating", 0);
-            price = intent.getIntExtra("price", 0);
+            rating = intent.getStringExtra("rating");
             address = intent.getStringExtra("address");
+            city = intent.getStringExtra("city");
+            state = intent.getStringExtra("state");
+            zip = intent.getStringExtra("zip");
+            phone = intent.getStringExtra("phone");
+            display_phone = intent.getStringExtra("display_phone");
+            mobile_url = intent.getStringExtra("mobile_url");
+            distance = intent.getStringExtra("distance");
+            yelp_id = intent.getStringExtra("yelp_id");
             
             // Create a bundle, assign it arguments
             Bundle bundle = new Bundle();
             bundle.putString("establishment_id", establishment_id);
+            bundle.putString("yelp_id", yelp_id);
             bundle.putString("name", name);
-            bundle.putString("description", description);
-            bundle.putInt("rating", rating);
-            bundle.putInt("price", price);
+            bundle.putString("rating", rating);
             bundle.putString("address", address);
+            bundle.putString("city", city);
+            bundle.putString("state", state);
+            bundle.putString("zip", zip);
+            bundle.putString("phone", phone);
+            bundle.putString("display_phone", display_phone);
+            bundle.putString("distance", distance);
+            bundle.putString("mobile_url", mobile_url);
+            bundle.putString("yelp_id", yelp_id);
         	
             switch (i) {
                 case 0:
@@ -180,7 +192,7 @@ public class DetailsActivity extends NavDrawer implements
         // Number of tabs to load
         @Override
         public int getCount() {
-            return 3;
+            return 2;
         }
     }
 
