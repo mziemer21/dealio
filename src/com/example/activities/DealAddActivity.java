@@ -103,6 +103,7 @@ public class DealAddActivity extends Activity {
 						deal.put("date_end", myDate);
 						spinner   = (Spinner)findViewById(R.id.deal_day_spinner);
 						deal.put("day", spinner.getSelectedItem().toString());
+						deal.put("yelp_id", intent.getStringExtra("yelp_id"));
 						
 						ParseQuery<ParseObject> queryEstablishment = ParseQuery.getQuery("Establishment");
 						queryEstablishment.whereEqualTo("objectId", intent.getStringExtra("establishment_id"));
