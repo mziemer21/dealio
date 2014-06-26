@@ -22,7 +22,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.activities.DealActivity;
+import com.example.activities.DealSearchActivity;
 import com.example.activities.DetailsActivity;
 import com.example.activities.ListActivity;
 import com.example.activities.LogoutActivity;
@@ -304,7 +304,7 @@ public class NavDrawer extends FragmentActivity {
 			break;
 			
 		case R.id.buttonDeals:
-			Intent DealActivity = new Intent(this, DealActivity.class);
+			Intent DealActivity = new Intent(this, DealSearchActivity.class);
 			startActivity(DealActivity);
 			break;
 			

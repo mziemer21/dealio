@@ -150,7 +150,6 @@ public class DetailsActivity extends NavDrawer implements
             bundle.putString("display_phone", display_phone);
             bundle.putString("distance", distance);
             bundle.putString("mobile_url", mobile_url);
-            bundle.putString("yelp_id", yelp_id);
         	
             switch (i) {
                 case 0:

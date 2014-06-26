@@ -15,6 +15,8 @@
     <string name="drinks">Drinks</string>
     <string name="search_distance">Search Distance</string>
     <string name="search">Search</string>
+    <string name="sort_by">Sort results by</string>
+    <string name="filter_by">Filter results by</string>
     
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
@@ -103,6 +105,38 @@
         <item>Friday</item>
         <item>Saturday</item>
     </array>
+    
+    <string name="sunday">Sun</string>
+    <string name="monday">Mon</string>
+    <string name="tuesday">Tues</string>
+    <string name="wednesday">Wed</string>
+    <string name="thursday">Thurs</string>
+    <string name="friday">Fri</string>
+    <string name="saturday">Sat</string>
     <!-- End Days of the week -->
+    
+     <!-- Action Bar action items -->
+    <string name="action_search">Search</string>
+    <string name="action_filter">Filter</string>
+    <string name="action_clear">Clear</string>
 
+    
+    <!-- Search  -->
+    <string name="keyword">Keyword</string>
+    
+    <!-- Search Types -->
+    <array name="search_type_dropdown">
+        <item>Best matched</item>
+        <item>Distance</item>
+        <item>Highest Rated</item>
+    </array>
+    <!-- End Search Types -->
+    
+    <!-- Distances -->
+	<string name="one_mile">1mi</string>
+	<string name="three_miles">3mi</string>
+	<string name="five_miles">5mi</string>
+	<string name="ten_miles">10mi</string>
+	<string name="twenty_miles">20mi</string>
+	<!-- End Distances -->
 </resources>

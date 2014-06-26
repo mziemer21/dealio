@@ -1,5 +1,7 @@
 package com.example.yelp;
 
+import java.util.ArrayList;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,16 +11,8 @@ public class YelpParser {
     private String yelp_response;
     JSONArray businesses;
      
-    /**
-     * Sets Yelp's response for this class
-     * @param response
-     */
     public void setResponse(String response){yelp_response = response;}
      
-    /**
-     * Returns the set Yelp response
-     * @return string yelp_response
-     */
     public String getResponse(){return yelp_response;}
      
     public void parseBusiness() throws JSONException{
@@ -51,5 +45,88 @@ public class YelpParser {
     public String getBusinessZipcode(JSONObject location) throws JSONException{ return location.get("postal_code").toString();}
     
     public String getBusinessState(JSONObject location) throws JSONException{ return location.get("state_code").toString();}
+    
+    public ArrayList<Business> getBusinesses(String json){
+    	ArrayList<Business> BusinessList = new ArrayList<Business>();
+    	Object loc = null;
+    	
+    	setResponse(json);
+    	try {
+			parseBusiness();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	for (int i =0; getJSONSize() > i; i++) {
+    		Business b = new Business();
+    		
+    		try {
+				b.setMobileURL(getBusinessMobileURL(i));
+    	    } catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} try {
+				b.setRating(getBusinessRating(i));
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} try {
+				b.setName(getBusinessName(i));
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} try {
+				b.setYelpId(getBusinessId(i));
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} try {
+				b.setPhone(getBusinessPhone(i));
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}try {
+				b.setDisplayPhone(getBusinessDisplayPhone(i));
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} try {
+				b.setDistance(getBusinessDistance(i));
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}try {
+				loc = getBusinessLocation(i);
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} try { 
+				b.setAddress(getBusinessAddress((JSONObject) loc));
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} try { 
+				b.setCity(getBusinessCity((JSONObject) loc));
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} try { 
+				b.setState(getBusinessState((JSONObject) loc));
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} try { 
+				b.setZipcode(getBusinessZipcode((JSONObject) loc));
+    	    } catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} 
+			
+			BusinessList.add(b);
+    	}
+    	
+    	return BusinessList;
+    }
     
 }
