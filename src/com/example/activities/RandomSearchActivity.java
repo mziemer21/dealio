@@ -60,7 +60,7 @@ GooglePlayServicesClient.OnConnectionFailedListener{
  
         @Override
         protected Void doInBackground(Void... params) {
-        	String distance, day_of_week;
+        	String distance, day_of_week, query;
         	Boolean food, drinks;
         	ParseObject deal_type = null;
         	
@@ -69,11 +69,15 @@ GooglePlayServicesClient.OnConnectionFailedListener{
         	day_of_week = intent.getStringExtra("day_of_week");
         	food = intent.getBooleanExtra("food", true);
         	drinks = intent.getBooleanExtra("drinks", true);
+        	query = intent.getStringExtra("query");
         	
         	// Locate the class table named "establishment" in Parse.com
             ParseQuery<ParseObject> queryRandomSearch = new ParseQuery<ParseObject>(
                     "Deal");
             queryRandomSearch.setLimit(10);
+            if(query != ""){
+            	queryRandomSearch.whereContains("title", query);
+            }
             if(day_of_week != null)
             {
             	queryRandomSearch.whereContains("day", day_of_week);
@@ -132,7 +136,8 @@ GooglePlayServicesClient.OnConnectionFailedListener{
                 i.putExtra("deal_details", ob.get(position).getString("details").toString());
                 i.putExtra("deal_title", ob.get(position).getString("title").toString());
                 i.putExtra("establishment_id", establishment.getObjectId());
-                //i.putExtra("establishment_id", ob.get(position).getString("establishment").toString());
+                i.putExtra("deal_restrictions", ob.get(position).getInt("description"));
+                i.putExtra("yelp_id", ob.get(position).getString("yelp_id"));
                 // Open SingleItemView.java Activity
                 ob = null;
                 startActivity(i);

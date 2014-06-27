@@ -46,7 +46,7 @@ public class DealsDetailsActivity extends Activity{
 		details.setText(deal_details);
 		
 		TextView establishment = (TextView) findViewById(R.id.dealEstablishment);
-		establishment.setText(est.getString("name").toString());
+		//establishment.setText(est.getString("name").toString());
 		
 		
 	}

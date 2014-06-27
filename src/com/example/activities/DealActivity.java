@@ -38,6 +38,7 @@ GooglePlayServicesClient.OnConnectionFailedListener{
     private Location currentLocation = null;
     Intent intent;
     Integer obCount;
+    ParseObject est;
 
     // Stores the current instantiation of the location client in this object
     private LocationClient locationClient;
@@ -69,7 +70,7 @@ GooglePlayServicesClient.OnConnectionFailedListener{
  
         @Override
         protected Void doInBackground(Void... params) {
-        	String distance, day_of_week;
+        	String distance, day_of_week, query;
         	Boolean food, drinks;
         	ParseObject deal_type = null;
         	
@@ -78,10 +79,14 @@ GooglePlayServicesClient.OnConnectionFailedListener{
         	day_of_week = intent.getStringExtra("day_of_week");
         	food = intent.getBooleanExtra("food", true);
         	drinks = intent.getBooleanExtra("drinks", true);
+        	query = intent.getStringExtra("query");
         	
             // Locate the class table named "establishment" in Parse.com
             ParseQuery<ParseObject> queryDealSearch = new ParseQuery<ParseObject>("Deal");
             queryDealSearch.setLimit(10);
+            if(query != ""){
+            	queryDealSearch.whereContains("title", query);
+            }
             if(day_of_week != null)
             {
             	queryDealSearch.whereContains("day", day_of_week);
@@ -151,6 +156,7 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 	                    // Send single item click data to SingleItemView Class
 	                Intent i = new Intent(DealActivity.this,
 	                		DealsDetailsActivity.class);
+	                est = (ParseObject) ob.get(position).get("establishment");
 	                    // Pass data "name" followed by the position
 	                	i.putExtra("deal_id", ob.get(position).getObjectId().toString());
 	                    i.putExtra("deal_title", ob.get(position).getString("title")
@@ -159,6 +165,7 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 	                            .toString());
 	                    i.putExtra("deal_restrictions", ob.get(position).getInt("description"));
 	                    i.putExtra("yelp_id", ob.get(position).getString("yelp_id"));
+	                    i.putExtra("establishment_id", est.getObjectId().toString());
 	                    // Open SingleItemView.java Activity
 	                    startActivity(i);
 	                    
