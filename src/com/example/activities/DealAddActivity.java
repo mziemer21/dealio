@@ -120,7 +120,7 @@ public class DealAddActivity extends Activity {
 							deal_count = establishment.getInt("deal_count") +1;
 							establishment.put("deal_count", deal_count);
 						} else {
-							searchString = intent.getStringExtra("address").replaceAll("\\s+","+") + "+" + intent.getStringExtra("city") + "+" + intent.getStringExtra("state") + "+" + intent.getStringExtra("zip");
+							searchString = intent.getStringExtra("address").replaceAll("\\s+","+") + "+" + intent.getStringExtra("city").replaceAll("\\s+","+") + "+" + intent.getStringExtra("state").replaceAll("\\s+","+") + "+" + intent.getStringExtra("zip");
 							OAuthRequest request = new OAuthRequest(Verb.GET, "http://maps.googleapis.com/maps/api/geocode/json?address="+searchString+"&sensor=true");
 					        Response response = request.send();
 					        result = response.getBody();

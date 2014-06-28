@@ -121,6 +121,11 @@ public class YelpParser {
     	    } catch (JSONException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
+			} try { 
+				b.setLatLng(getBusinessAddress((JSONObject) loc), getBusinessCity((JSONObject) loc), getBusinessState((JSONObject) loc), getBusinessZipcode((JSONObject) loc));
+    	    } catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			} 
 			
 			BusinessList.add(b);
